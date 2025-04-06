@@ -1,2 +1,1 @@
-# MealPrepTrackerBusiness
-Business logic model of the MealPrepTracker app
+# MealPrepTracker Business Layer\nThis is the backend for the MealPrepTracker project.\n\n## Getting Started\nTo run this project locally, you need to install dependencies and set up environment variables.\n

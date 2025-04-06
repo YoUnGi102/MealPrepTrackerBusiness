@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // The JavaScript version to compile to
+    "module": "CommonJS", // Use CommonJS for module system (default for Node.js)
+    "strict": true, // Enable all strict type-checking options
+    "esModuleInterop": true, // Allow default imports from modules without a default export
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in imports
+    "outDir": "./dist", // Output directory for compiled JavaScript files
+    "baseUrl": ".", // Base directory to resolve non-relative module names
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "resolveJsonModule": true, // Allow importing .json files
+    "types": ["node", "express", "mocha"] // Add types for Node, Express, and Mocha
+  },
+  "include": [
+    "src/**/*" // Include all files inside the 'src' folder
+  ],
+  "exclude": [
+    "node_modules", // Exclude node_modules folder
+    "dist" // Exclude dist folder (compiled files)
+  ]
+}
