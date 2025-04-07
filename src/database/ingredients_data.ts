@@ -1,0 +1,1 @@
+const getIngredients = (): any => {};
