@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 # Step 7: Start the application (assuming entry point is `server.js`)
-CMD ["node", "server.js"]
+CMD ["node", "server.ts"]
