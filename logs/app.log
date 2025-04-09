@@ -105,3 +105,7 @@
 2025-04-07 21:06:25 [info]: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 2025-04-07 21:13:53 [info]: GET api/ingredients/: {"name":"Chicken Breast"}
 2025-04-07 21:13:53 [info]: [object Object]
+2025-04-07 21:22:02 [info]: GET api/ingredients/: {"name":"C"}
+2025-04-07 21:22:02 [info]: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+2025-04-07 21:22:05 [info]: GET api/ingredients/: {"name":"Coconut"}
+2025-04-07 21:22:05 [info]: [object Object]
