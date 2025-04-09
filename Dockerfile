@@ -1,20 +1,16 @@
-# Step 1: Use the specific Node.js version (v22.14.0) as the base image
-FROM node:22.14.0-slim
+FROM node:18
 
-# Step 2: Set the working directory inside the container
 WORKDIR /app
 
-# Step 3: Copy the package.json and package-lock.json
 COPY package*.json ./
-
-# Step 4: Install dependencies (npm install)
 RUN npm install
 
-# Step 5: Copy all files into the container
 COPY . .
 
-# Step 6: Expose the port your app will run on
-EXPOSE 5000
+# Build TypeScript to JavaScript
+RUN npm run build
 
-# Step 7: Start the application (assuming entry point is `server.js`)
-CMD ["node", "server.ts"]
+EXPOSE 3000
+
+# Start the app from dist
+CMD ["node", "dist/server.js"]
