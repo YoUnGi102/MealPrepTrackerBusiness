@@ -1,5 +1,5 @@
-import AppDataSource from '../data-source.ts';
-import { User } from '../types/entities/User.ts';
+import AppDataSource from '../data-source';
+import { User } from '../types/entities/User';
 
 const userRepo = AppDataSource.getRepository(User);
 

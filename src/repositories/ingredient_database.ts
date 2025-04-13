@@ -1,4 +1,4 @@
-import { Ingredient } from '../models/Ingredient.ts';
+import { Ingredient } from '../models/Ingredient';
 
 const INGREDIENTS: Ingredient[] = [
   {

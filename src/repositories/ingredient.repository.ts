@@ -1,5 +1,5 @@
-import AppDataSource from '../data-source.ts';
-import { Ingredient } from '../types/entities/Ingredient.ts';
+import AppDataSource from '../data-source';
+import { Ingredient } from '../types/entities/Ingredient';
 
 const ingredientRepo = AppDataSource.getRepository(Ingredient);
 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { Ingredient } from '../models/Ingredient.ts';
-import logger from '../utils/logger.ts';
-import { getIngredientsByName } from '../services/ingredient.service.ts';
+import { Ingredient } from '../models/Ingredient';
+import logger from '../utils/logger';
+import { getIngredientsByName } from '../services/ingredient.service';
 
 export const getIngredients = async (
   req: Request,
