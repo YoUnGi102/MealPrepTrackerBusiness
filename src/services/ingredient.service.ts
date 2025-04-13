@@ -1,13 +1,10 @@
-import dotenv from 'dotenv';
 import { Ingredient } from '../models/Ingredient';
 import logger from '../utils/logger';
-import INGREDIENTS from '../database/ingredient_database';
+import INGREDIENTS from '../repositories/ingredient_database';
 
-const getIngredients = (name: string): Ingredient[] => {
-  // TODO Add code to first load ingredients from the database
-
+const getIngredientsByName = (name: string): Ingredient[] => {
   const result = INGREDIENTS.filter((ingredient: Ingredient) =>
-    ingredient.name.toLowerCase().includes(name.toLowerCase()),
+    ingredient.name.toLowerCase().includes((name || '').toLowerCase()),
   );
 
   logger.info(result);
@@ -15,4 +12,4 @@ const getIngredients = (name: string): Ingredient[] => {
   return result;
 };
 
-export { getIngredients };
+export { getIngredientsByName };

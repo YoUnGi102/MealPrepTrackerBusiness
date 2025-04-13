@@ -1,13 +1,21 @@
-import app from './app'; // Import the app defined in app.ts
+import 'reflect-metadata';
 import dotenv from 'dotenv';
-
-// Load environment variables from .env file (if available)
+import AppDataSource from './data-source';
+import express from 'express';
+import routes_v1 from './routes/index';
 dotenv.config();
 
-// Define the port from environment variable or default to 3000
-const PORT = process.env.PORT || 5000;
+const app = express();
+app.use(express.json());
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
+AppDataSource.initialize().then(() => {
+  console.log('DB initialized');
+  const PORT = process.env.PORT || 5000;
+
+  // Register routes
+  app.use('/api/', routes_v1);
+
+  app.listen(PORT, () => {
+    console.log(`Listening on http://localhost:${PORT}`);
+  });
 });

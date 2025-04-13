@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import healthRoute from './routes/health'; // Your existing health route
-import ingredientsRoute from './routes/ingredients'; // New ingredients route
+import ingredientsRoute from './routes/ingredient'; // New ingredients route
 
 dotenv.config();
 

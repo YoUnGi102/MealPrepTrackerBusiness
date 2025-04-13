@@ -109,3 +109,49 @@
 2025-04-07 21:22:02 [info]: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 2025-04-07 21:22:05 [info]: GET api/ingredients/: {"name":"Coconut"}
 2025-04-07 21:22:05 [info]: [object Object]
+2025-04-13 15:33:46 [info]: Registering user
+2025-04-13 15:35:45 [info]: Registering user
+2025-04-13 15:35:45 [error]: Error registering user No metadata for "User" was found.
+2025-04-13 15:38:11 [info]: Registering user
+2025-04-13 15:38:11 [error]: Error registering user null value in column "email" of relation "user" violates not-null constraint
+2025-04-13 15:41:43 [info]: Registering user
+2025-04-13 15:48:59 [info]: [object Object]
+2025-04-13 15:49:58 [info]: {
+  "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NDU1MTk0OCwiZXhwIjoxNzQ0NjM4MzQ4fQ.UpC__CTBmnBy6pupQUimXuqVx_WmjOUqjHYso66sZU4",
+  "user-agent": "Apidog/1.0.0 (https://apidog.com)",
+  "content-type": "application/json",
+  "accept": "*/*",
+  "host": "localhost:5000",
+  "accept-encoding": "gzip, deflate, br",
+  "connection": "keep-alive"
+}
+2025-04-13 15:51:09 [info]: {
+  "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NDU1MTk0OCwiZXhwIjoxNzQ0NjM4MzQ4fQ.UpC__CTBmnBy6pupQUimXuqVx_WmjOUqjHYso66sZU4",
+  "user-agent": "Apidog/1.0.0 (https://apidog.com)",
+  "content-type": "application/json",
+  "accept": "*/*",
+  "host": "localhost:5000",
+  "accept-encoding": "gzip, deflate, br",
+  "connection": "keep-alive"
+}
+2025-04-13 15:51:09 [info]: GET api/ingredients/: {}
+2025-04-13 15:58:17 [info]: {
+  "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NDU1MTk0OCwiZXhwIjoxNzQ0NjM4MzQ4fQ.UpC__CTBmnBy6pupQUimXuqVx_WmjOUqjHYso66sZU4",
+  "user-agent": "Apidog/1.0.0 (https://apidog.com)",
+  "content-type": "application/json",
+  "accept": "*/*",
+  "host": "localhost:5000",
+  "accept-encoding": "gzip, deflate, br",
+  "connection": "keep-alive"
+}
+2025-04-13 15:58:17 [info]: GET api/ingredients/: {}
+2025-04-13 15:58:17 [info]: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+2025-04-13 15:58:28 [info]: {
+  "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NDU1MTk0OCwiZXhwIjoxNzQ0NjM4MzQ4fQ.UpC__CTBmnBy6pupQUimXuqVx_WmjOUqjHYso66sZU4",
+  "user-agent": "Apidog/1.0.0 (https://apidog.com)",
+  "content-type": "application/json",
+  "accept": "*/*",
+  "host": "localhost:5000",
+  "accept-encoding": "gzip, deflate, br",
+  "connection": "keep-alive"
+}

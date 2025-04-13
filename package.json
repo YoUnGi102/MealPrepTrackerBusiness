@@ -12,26 +12,36 @@
   },
   "license": "ISC",
   "author": "YoUnGi102",
-  "type": "commonjs",
+  "type": "module",
   "main": "src/server.ts",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "start": "ts-node src/server.ts",
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "nodemon src/server.ts",
+    "start": "node dist/server.js",
     "build": "tsc",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "bdd": "cucumber-js tests/bdd/features",
     "ci": "npm ci && npm run test && npm run bdd",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "typeorm": "node --loader ts-node/esm ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/data-source.ts src/migrations/Init",
+    "migration:run": "npm run typeorm -- migration:run -d src/data-source.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts"
   },
   "dependencies": {
     "axios": "^1.8.4",
+    "bcryptjs": "^3.0.2",
+    "class-transformer": "^0.5.1",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.14.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.22",
     "winston": "^3.17.0"
   },
   "devDependencies": {
@@ -39,14 +49,16 @@
     "@types/chai": "^5.2.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.14.1",
     "chai": "^5.2.0",
     "chai-http": "^5.1.1",
     "mocha": "^11.1.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   }
 }
