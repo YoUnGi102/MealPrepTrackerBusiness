@@ -1,5 +1,5 @@
 import AppDataSource from '../data-source';
-import { Ingredient } from '../types/entities/Ingredient';
+import { Ingredient } from '../database/entities/Ingredient';
 
 const ingredientRepo = AppDataSource.getRepository(Ingredient);
 
@@ -11,4 +11,11 @@ const getIngredientsByName = async (): Promise<Ingredient[]> => {
   return ingredients;
 };
 
-export { getIngredientsByName };
+const addIngredient = async (data: Partial<Ingredient>): Promise<Ingredient> => {
+  const ingredient = ingredientRepo.create(data);
+  await ingredientRepo.save(ingredient);
+  return ingredient;
+}
+
+
+export { getIngredientsByName, addIngredient};

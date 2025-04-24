@@ -8,7 +8,7 @@ export class Ingredient {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', default: "Other" })
   type: string;
 
   @Column({ type: 'float' })
@@ -23,7 +23,7 @@ export class Ingredient {
   @Column({ type: 'float' })
   sugar: number;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true})
   image: string;
 
   constructor(

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { register, login } from '../services/auth.service';
-import logger from '../utils/logger';
+import { register, login } from '../../logic/services/auth.service';
+import logger from '../../logic/utils/logger';
 
 export const registerUser = async (
   req: Request,
@@ -12,9 +12,8 @@ export const registerUser = async (
     const { username, password } = req.body;
     const user = await register(username, password);
     res.status(201).json({ message: 'User registered', user });
-  } catch (err: any) {
-    logger.error('Error registering user', err);
-    res.status(400).json({ error: err.message });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -23,15 +22,17 @@ export const loginUser = async (
   res: Response,
   next: NextFunction,
 ) => {
+  logger.info('Logging in user');
   try {
     const { username, password } = req.body;
     const result = await login(username, password);
     res.status(200).json(result);
-  } catch (err: any) {
-    res.status(401).json({ error: err.message });
+  } catch (err) {
+    next(err);
   }
 };
 
 export const logoutUser = (_req: Request, res: Response) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
+

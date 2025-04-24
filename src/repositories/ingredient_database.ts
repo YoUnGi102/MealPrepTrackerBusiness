@@ -1,4 +1,4 @@
-import { Ingredient } from '../models/Ingredient';
+import { Ingredient } from '../logic/models/Ingredient';
 
 const INGREDIENTS: Ingredient[] = [
   {

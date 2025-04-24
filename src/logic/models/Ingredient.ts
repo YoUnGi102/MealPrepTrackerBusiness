@@ -2,17 +2,7 @@
 export interface Ingredient {
   id: number;
   name: string;
-  type:
-    | 'VEGETABLE'
-    | 'MEAT'
-    | 'FRUIT'
-    | 'DAIRY'
-    | 'GRAIN'
-    | 'TOFU'
-    | 'FISH'
-    | 'LEGUME'
-    | 'OIL'
-    | 'NUT';
+  type: string;
   protein: number; // grams per 100g
   fat: number; // grams per 100g
   carbs: number; // grams per 100g

@@ -15,6 +15,6 @@
     "resolveJsonModule": true,
     "types": ["node", "express"]
   },
-  "include": ["src/**/*", "src/types/**/*"],
+  "include": ["src/**/*", "src/logic/modules/**/*"],
   "exclude": ["node_modules", "dist"]
 }

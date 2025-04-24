@@ -3,8 +3,8 @@ import {
   loginUser,
   registerUser,
   logoutUser,
-} from '../controllers/auth.controller';
-import { authMiddleware } from '../middleware/auth.middleware';
+} from '../../endpoints/controllers/auth.controller';
+import { authMiddleware } from '../../logic/middleware/auth.middleware';
 
 const router = express.Router();
 

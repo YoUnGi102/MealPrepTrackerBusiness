@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { getUserByUsername, createUser } from '../repositories/user.repository';
-import { User } from '../types/entities/User';
+import { getUserByUsername, createUser } from '../../repositories/user.repository';
+import { User } from '../../database/entities/User';
 
 export const register = async (
   username: string,
