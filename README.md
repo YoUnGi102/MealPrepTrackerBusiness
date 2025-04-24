@@ -1,1 +1,5 @@
-# MealPrepTracker Business Layer\nThis is the backend for the MealPrepTracker project.\n\n## Getting Started\nTo run this project locally, you need to install dependencies and set up environment variables.\n
+# MealPrepTracker Business Layer
+This is the backend for the MealPrepTracker project.
+
+## Getting Started
+To run this project locally, you need to install dependencies and set up environment variables.
