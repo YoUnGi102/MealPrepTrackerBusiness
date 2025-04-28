@@ -1,15 +1,10 @@
-import { Ingredient } from '../models/Ingredient';
+import { Ingredient } from '../types/Ingredient';
 import logger from '../utils/logger';
 import * as ingredientRepo from '../../repositories/ingredient.repository' ;
-import INGREDIENTS from '../../repositories/ingredient_database';
 
-const getIngredientsByName = (name: string): Ingredient[] => {
-  const result = INGREDIENTS.filter((ingredient: Ingredient) =>
-    ingredient.name.toLowerCase().includes((name || '').toLowerCase()),
-  );
-
-  logger.info(result);
-
+const getIngredientsByName = async (name: string): Promise<Ingredient[]> => {
+  const result = await ingredientRepo.getIngredientsByName(name)
+  logger.info(result.length);
   return result;
 };
 

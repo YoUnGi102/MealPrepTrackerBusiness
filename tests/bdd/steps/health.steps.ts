@@ -1,23 +1,23 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('../../../src/app');
+import { Given, When, Then } from '@cucumber/cucumber';
+import { expect, use } from 'chai';
+import app from '../../../src/server.js';
+import {default as chaiHttp, request} from "chai-http";
 
-chai.use(chaiHttp);
-const expect = chai.expect;
+use(chaiHttp);
+let response: ChaiHttp.Response;
 
-let response;
-
-Given('the server is running', function () {});
-
-When('I request GET /api/health', async function () {
-  response = await chai.request(app).get('/api/health');
+Given('the server is running', function () {
+  // no-op
 });
 
-Then('the response should be {int}', function (statusCode) {
+When('I request GET /api/health', async function () {
+  response = await request.execute(app).get('/api/health');
+});
+
+Then('the response should be {int}', function (statusCode: number) {
   expect(response).to.have.status(statusCode);
 });
 
-Then('the response body should contain {string}', function (text) {
+Then('the response body should contain {string}', function (text: string) {
   expect(response.body.status).to.equal(text);
 });

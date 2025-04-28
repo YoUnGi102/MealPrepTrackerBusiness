@@ -23,6 +23,9 @@ export class Ingredient {
   @Column({ type: 'float' })
   sugar: number;
 
+  @Column({type: 'float'})
+  calories: number;
+
   @Column({ type: 'varchar', nullable: true})
   image: string;
 
@@ -34,6 +37,7 @@ export class Ingredient {
     carbs: number,
     sugar: number,
     image: string,
+    calories: number,
   ) {
     this.name = name;
     this.type = type;
@@ -41,6 +45,7 @@ export class Ingredient {
     this.fat = fat;
     this.carbs = carbs;
     this.sugar = sugar;
+    this.calories = calories;
     this.image = image;
   }
 }

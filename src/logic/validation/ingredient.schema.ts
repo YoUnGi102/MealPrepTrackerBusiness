@@ -7,5 +7,6 @@ export const ingredientSchema = Joi.object({
   fat: Joi.number().min(0).required(),
   carbs: Joi.number().min(0).required(),
   sugar: Joi.number().min(0).required(),
-  image: Joi.string().uri().optional()
+  calories: Joi.number().min(0).required(),
+  image: Joi.string().uri().empty('').optional()
 });

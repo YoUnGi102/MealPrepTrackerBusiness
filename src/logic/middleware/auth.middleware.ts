@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger';
+import { CustomError } from './error.middleware';
 
 export const authMiddleware = (
   req: Request,
@@ -18,9 +19,12 @@ export const authMiddleware = (
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-    (req as any).user = decoded;
+    if (!decoded){
+      throw new CustomError(401, 'Token could not be decoded');
+    }
+    // (req as any).user = decoded;
     next();
-  } catch (err) {
-    res.status(401).json({ message: 'Invalid token' });
+  } catch (error) {
+    next(error);
   }
 };

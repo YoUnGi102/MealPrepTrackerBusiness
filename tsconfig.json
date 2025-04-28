@@ -13,8 +13,8 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "types": ["node", "express"]
+    "types": ["node", "express"],
   },
-  "include": ["src/**/*", "src/logic/modules/**/*"],
+  "include": ["src/**/*", "src/logic/types/**/*", "src/logic/types/express.d.ts", "tests/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
