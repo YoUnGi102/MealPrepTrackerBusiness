@@ -10,7 +10,13 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+
+const FRONTEND_URL = process.env.FRONTEND_URL;
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true,
+}));
+
 app.use(errorMiddleware)
 
 AppDataSource.initialize().then(() => {
