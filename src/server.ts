@@ -6,7 +6,10 @@ import routes_v1 from './endpoints/routes/index';
 import cors from 'cors';
 import { errorMiddleware } from './logic/middleware/error.middleware';
 import logger from './logic/utils/logger';
+
 dotenv.config();
+
+const NODE_ENV = process.env.NODE_ENV
 
 const app = express();
 app.use(express.json());
@@ -40,8 +43,10 @@ AppDataSource.initialize().then(() => {
   app.use('/api/', routes_v1);
 
   app.listen(PORT, () => {
-    logger.info(`Listening on ${PORT}`);
+    if (NODE_ENV != 'production')logger.info(`Listening on localhost:${PORT}`);
   });
-});
+}).catch((error) => {
+  console.error("Database connection failed:", error);
+});;
 
 export default app;

@@ -7,10 +7,9 @@ RUN npm install
 
 COPY . .
 
-# Build TypeScript to JavaScript
 RUN npm run build
 
 EXPOSE 3000
 
-# Start the app from dist
-CMD ["node", "dist/server.js"]
+# Run migration then start the server
+CMD ["sh", "-c", "npm run migration:run && node dist/server.js"]
