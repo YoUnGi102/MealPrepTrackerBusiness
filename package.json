@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsup src --out-dir dist --format esm --dts",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "bdd": "cucumber-js tests/bdd/features",
     "ci": "npm ci && npm run test && npm run bdd",
