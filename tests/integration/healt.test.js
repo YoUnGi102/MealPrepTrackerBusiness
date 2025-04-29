@@ -2,7 +2,6 @@ import { expect, use } from 'chai';
 import app from '../../src/server.js';
 import { default as chaiHttp, request } from "chai-http";
 import { describe, it } from 'node:test';
-
 use(chaiHttp);
 describe('Health Check', () => {
     it('should return status ok', async () => {
