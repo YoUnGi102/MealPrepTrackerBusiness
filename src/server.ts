@@ -11,12 +11,25 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const FRONTEND_URL = process.env.FRONTEND_URL;
-app.use(cors({
-  origin: FRONTEND_URL,
+const allowedOrigins = [
+  process.env.FRONTEND_URL
+]
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /^http:\/\/localhost(:\d+)?$/.test(origin)
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-}));
+};
 
+app.use(cors(corsOptions));
 app.use(errorMiddleware)
 
 AppDataSource.initialize().then(() => {
@@ -27,7 +40,7 @@ AppDataSource.initialize().then(() => {
   app.use('/api/', routes_v1);
 
   app.listen(PORT, () => {
-    logger.info(`Listening on http://localhost:${PORT}`);
+    logger.info(`Listening on ${PORT}`);
   });
 });
 
