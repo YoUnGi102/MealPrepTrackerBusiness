@@ -12,4 +12,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Run migration then start the server
-CMD ["sh", "-c", "npm run migration:run && node dist/server.js"]
+CMD ["sh", "-c", "typeorm migration:run -d dist/src/data-source.js && node dist/server.js"]
