@@ -28,7 +28,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typeorm": "node --loader ts-node/esm ./node_modules/typeorm/cli.js",
-    "migration:generate": "npm run typeorm -- migration:generate -d src/data-source.ts src/database/migrations/Init",
+    "migration:generate": "npm run typeorm -- migration:generate -d dist/data-source.js src/database/migrations/Init",
     "migration:run": "npm run typeorm -- migration:run -d src/data-source.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts"
   },

@@ -21,13 +21,13 @@ export abstract class AuditableEntity {
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 
-  @ManyToOne(() => require('./User').User, { nullable: true })
+  @ManyToOne(() => forwardRef(() => User), { nullable: true })
   createdBy?: User;
   
-  @ManyToOne(() => require('./User').User, { nullable: true })
+  @ManyToOne(() => forwardRef(() => User), { nullable: true })
   updatedBy?: User;
   
-  @ManyToOne(() => require('./User').User, { nullable: true })
+  @ManyToOne(() => forwardRef(() => User), { nullable: true })
   deletedBy?: User;
 
   @VersionColumn({default: 1})
@@ -37,4 +37,8 @@ export abstract class AuditableEntity {
     this.createdBy = createdBy || undefined;
     this.version = 1
   }
+}
+
+function forwardRef(arg0: () => typeof User): import("typeorm").ObjectType<unknown> {
+  throw new Error("Function not implemented.");
 }
