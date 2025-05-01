@@ -15,19 +15,19 @@ export abstract class AuditableEntity {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @ManyToOne(() => User, { nullable: true })
-  createdBy?: User; 
-
   @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;  
-
-  @ManyToOne(() => User, { nullable: true })
-  updatedBy?: User;
 
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 
-  @ManyToOne(() => User, { nullable: true })
+  @ManyToOne(() => require('./User').User, { nullable: true })
+  createdBy?: User;
+  
+  @ManyToOne(() => require('./User').User, { nullable: true })
+  updatedBy?: User;
+  
+  @ManyToOne(() => require('./User').User, { nullable: true })
   deletedBy?: User;
 
   @VersionColumn({default: 1})

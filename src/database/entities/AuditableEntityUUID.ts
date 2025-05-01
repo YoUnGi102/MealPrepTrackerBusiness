@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity } from "typeorm";
+import { BeforeInsert, Column } from "typeorm";
 import { AuditableEntity } from "./AuditableEntity";
 import { v4 as uuidv4 } from 'uuid';
 

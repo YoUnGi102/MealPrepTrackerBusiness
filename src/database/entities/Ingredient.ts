@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, OneToMany } from 'typeorm';
 import { User } from './User';
 import { MacroEntity } from './MacroEntity';
 import { MealIngredient } from './MealIngredient';

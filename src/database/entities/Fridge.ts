@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, OneToMany } from "typeorm";
 import { User } from "./User";
 import { Meal } from "./Meal";
 import { AuditableEntity } from "./AuditableEntity";

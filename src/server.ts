@@ -46,7 +46,7 @@ AppDataSource.initialize().then(() => {
     if (NODE_ENV != 'production')logger.info(`Listening on localhost:${PORT}`);
   });
 }).catch((error) => {
-  console.error("Database connection failed:", error);
+  logger.error("Database connection failed:", error);
 });;
 
 export default app;

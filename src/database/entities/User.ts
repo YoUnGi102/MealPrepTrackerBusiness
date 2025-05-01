@@ -1,11 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
 import { AuditableEntityUUID } from './AuditableEntityUUID';
 import { Fridge } from './Fridge';
+import { Log } from './Log';
 
 @Entity()
 export class User extends AuditableEntityUUID {
-  @PrimaryGeneratedColumn()
-  id!: number;
 
   @Column({ type: 'varchar', unique: true })
   username: string;
@@ -18,6 +17,9 @@ export class User extends AuditableEntityUUID {
 
   @ManyToOne(() => Fridge, fridge => fridge.users)
   fridge: Fridge;
+
+  @OneToMany(() => Log, log => log.user)
+  logs?: Log[];
 
   constructor(username: string, password: string, active: boolean = true, fridge: Fridge) {
     super();

@@ -8,5 +8,5 @@ export interface Ingredient {
   carbs: number; // grams per 100g
   sugar: number; // grams per 100g
   calories: number; // grams per 100g
-  image: string; // URL or file path to the image
+  image?: string; // URL or file path to the image
 }

@@ -1,4 +1,4 @@
-import { Ingredient } from '../types/Ingredient';
+import { Ingredient } from '../../database/entities/Ingredient';
 import logger from '../utils/logger';
 import * as ingredientRepo from '../../repositories/ingredient.repository' ;
 
