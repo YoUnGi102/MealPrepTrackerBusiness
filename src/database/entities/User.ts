@@ -5,7 +5,6 @@ import { Log } from './Log';
 
 @Entity()
 export class User extends AuditableEntityUUID {
-
   @Column({ type: 'varchar', unique: true })
   username: string;
 
@@ -15,13 +14,18 @@ export class User extends AuditableEntityUUID {
   @Column({ type: 'boolean', default: true })
   active: boolean;
 
-  @ManyToOne(() => Fridge, fridge => fridge.users)
+  @ManyToOne(() => Fridge, (fridge) => fridge.users)
   fridge: Fridge;
 
-  @OneToMany(() => Log, log => log.user)
+  @OneToMany(() => Log, (log) => log.user)
   logs?: Log[];
 
-  constructor(username: string, password: string, active: boolean = true, fridge: Fridge) {
+  constructor(
+    username: string,
+    password: string,
+    active: boolean = true,
+    fridge: Fridge,
+  ) {
     super();
     this.fridge = fridge;
     this.username = username;

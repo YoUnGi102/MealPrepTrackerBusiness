@@ -8,20 +8,21 @@ const ingredientRepo = AppDataSource.getRepository(Ingredient);
 const getIngredientsByName = async (name: string): Promise<Ingredient[]> => {
   const ingredients = await ingredientRepo.find({
     where: {
-      name: ILike(`%${name}%`)
+      name: ILike(`%${name}%`),
     },
     order: { name: 'ASC' },
-    take: 10
+    take: 10,
   });
-  logger.info(`[Ingredients]: Found ${ingredients.length} ingredients`)
+  logger.info(`[Ingredients]: Found ${ingredients.length} ingredients`);
   return ingredients;
 };
 
-const addIngredient = async (data: Partial<Ingredient>): Promise<Ingredient> => {
+const addIngredient = async (
+  data: Partial<Ingredient>,
+): Promise<Ingredient> => {
   const ingredient = ingredientRepo.create(data);
   await ingredientRepo.save(ingredient);
   return ingredient;
-}
+};
 
-
-export { getIngredientsByName, addIngredient};
+export { getIngredientsByName, addIngredient };

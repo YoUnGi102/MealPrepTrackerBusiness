@@ -1,7 +1,12 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { getUserByUsername, createUser } from '../../repositories/user.repository';
+import {
+  getUserByUsername,
+  createUser,
+  authUser,
+} from '../../repositories/user.repository';
 import { User } from '../../database/entities/User';
+import logger from '../utils/logger';
 
 export const register = async (
   username: string,
@@ -20,15 +25,22 @@ export const login = async (
   username: string,
   password: string,
 ): Promise<{ token: string }> => {
-  const user = await getUserByUsername(username);
+  console.log(JSON.stringify({username, password}))
+  const user = await authUser(username);
   if (!user) throw new Error('User not found');
 
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) throw new Error('Invalid credentials');
 
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
-    expiresIn: '24h',
-  });
+  logger.debug(JSON.stringify({user}))
+
+  const token = jwt.sign(
+    { username: user.username, uuid: user.uuid },
+    process.env.JWT_SECRET!,
+    {
+      expiresIn: '24h',
+    },
+  );
 
   return { token };
 };

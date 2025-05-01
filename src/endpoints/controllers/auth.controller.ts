@@ -22,7 +22,7 @@ export const loginUser = async (
   res: Response,
   next: NextFunction,
 ) => {
-  logger.info('Logging in user');
+  logger.info(`POST /api/auth/login - ${JSON.stringify(req.body)}`);
   try {
     const { username, password } = req.body;
     const result = await login(username, password);
@@ -35,4 +35,3 @@ export const loginUser = async (
 export const logoutUser = (_req: Request, res: Response) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
-

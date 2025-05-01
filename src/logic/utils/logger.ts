@@ -2,7 +2,7 @@ import winston from 'winston';
 
 // Create a custom logger
 const logger = winston.createLogger({
-  level: 'info', // default log level
+  level: 'debug', // default log level
   format: winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.printf(({ timestamp, level, message }) => {

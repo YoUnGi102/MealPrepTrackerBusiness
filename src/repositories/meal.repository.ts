@@ -1,0 +1,57 @@
+import AppDataSource from '../data-source';
+import logger from 'src/logic/utils/logger';
+import {
+  Ingredient,
+  Meal,
+  MealIngredient,
+  User,
+} from 'src/database/entities';
+import { MealDTO } from 'src/logic/types/Meal';
+import { CustomError } from 'src/logic/middleware/error.middleware';
+
+const mealRepo = AppDataSource.getRepository(Meal);
+const mealIngredientRepo = AppDataSource.getRepository(MealIngredient);
+const ingredientRepo = AppDataSource.getRepository(Ingredient);
+
+export const addMeal = async (user: User, data: MealDTO) => {
+  if (!user.fridge) {
+    throw new CustomError(400, 'User.fridge is undefined');
+  }
+
+  return await AppDataSource.transaction(async (transactionalEntityManager) => {
+    const ingredientRepo = transactionalEntityManager.getRepository(Ingredient);
+    const mealIngredientRepo = transactionalEntityManager.getRepository(MealIngredient);
+    const mealRepo = transactionalEntityManager.getRepository(Meal);
+
+    // Create ingredients
+    const ingredients: MealIngredient[] = await Promise.all(
+      data.ingredients.map(async (mi) => {
+        const ingredient = await ingredientRepo.findOneBy({ id: mi.ingredientId });
+        if (!ingredient) {
+          throw new CustomError(400, `No ingredient with id ${mi.ingredientId} was found`);
+        }
+
+        const result = mealIngredientRepo.create({
+          ingredient,
+          quantity: mi.quantity,
+          createdBy: user,
+        });
+
+        logger.info(`[MealIngredient]: Created`);
+        return result;
+      }),
+    );
+
+    await mealIngredientRepo.save(ingredients);
+
+    // Create and save meal
+    const meal = mealRepo.create({
+      ...data,
+      ingredients,
+      fridge: user.fridge,
+      createdBy: user,
+    });
+
+    return await mealRepo.save(meal);
+  });
+};

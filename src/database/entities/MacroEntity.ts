@@ -4,11 +4,10 @@ import { AuditableEntity } from './AuditableEntity';
 
 @Entity()
 export class MacroEntity extends AuditableEntity {
-
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'varchar', default: "Other" })
+  @Column({ type: 'varchar', default: 'Other' })
   type: string;
 
   @Column({ type: 'float' })
@@ -23,10 +22,10 @@ export class MacroEntity extends AuditableEntity {
   @Column({ type: 'float' })
   sugar: number;
 
-  @Column({type: 'float'})
+  @Column({ type: 'float' })
   calories: number;
 
-  @Column({ type: 'varchar', nullable: true})
+  @Column({ type: 'varchar', nullable: true })
   image?: string;
 
   constructor(
@@ -40,7 +39,7 @@ export class MacroEntity extends AuditableEntity {
     createdBy: User,
     image?: string,
   ) {
-    super(createdBy)
+    super(createdBy);
     this.name = name;
     this.type = type;
     this.protein = protein;

@@ -1,7 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, Request, NextFunction } from 'express';
 import { Ingredient } from '../../logic/types/Ingredient';
 import logger from '../../logic/utils/logger';
-import { getIngredientsByName, addIngredient } from '../../logic/services/ingredient.service';
+import {
+  getIngredientsByName,
+  addIngredient,
+} from '../../logic/services/ingredient.service';
 
 export const getIngredients = async (
   req: Request,
@@ -10,17 +13,20 @@ export const getIngredients = async (
 ) => {
   logger.info(`GET api/ingredients/: ${JSON.stringify(req.query)}`);
 
-  try{
-  const { name } = req.query;
+  try {
+    const { name } = req.query;
 
-  const ingredients: Ingredient[] = await getIngredientsByName(name as string);
+    const ingredients: Ingredient[] = await getIngredientsByName(
+      name as string,
+    );
 
-  if (ingredients) {
-    res.json({ data: ingredients });
-  } else {
-    res.status(404).json({ message: `Ingredient ${name} not found` });
-  }}catch(error){
-    next(error)
+    if (ingredients) {
+      res.json({ data: ingredients });
+    } else {
+      res.status(404).json({ message: `Ingredient ${name} not found` });
+    }
+  } catch (error) {
+    next(error);
   }
 };
 

@@ -5,8 +5,10 @@ import { MealIngredient } from './MealIngredient';
 
 @Entity()
 export class Ingredient extends MacroEntity {
-
-  @OneToMany(() => MealIngredient, mealIngredient => mealIngredient.ingredient)
+  @OneToMany(
+    () => MealIngredient,
+    (mealIngredient) => mealIngredient.ingredient,
+  )
   mealIngredients?: MealIngredient[];
 
   constructor(
