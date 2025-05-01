@@ -1,13 +1,14 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Init1746100901501 implements MigrationInterface {
-    name = 'Init1746100901501'
+export class Init1746101281760 implements MigrationInterface {
+    name = 'Init1746101281760'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "ingredient" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP DEFAULT now(), "deletedAt" TIMESTAMP, "version" integer NOT NULL DEFAULT '1', "name" character varying NOT NULL, "type" character varying NOT NULL DEFAULT 'Other', "protein" double precision NOT NULL, "fat" double precision NOT NULL, "carbs" double precision NOT NULL, "sugar" double precision NOT NULL, "calories" double precision NOT NULL, "image" character varying, "createdById" integer, "updatedById" integer, "deletedById" integer, CONSTRAINT "PK_6f1e945604a0b59f56a57570e98" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "meal_ingredient" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP DEFAULT now(), "deletedAt" TIMESTAMP, "version" integer NOT NULL DEFAULT '1', "quantity" double precision NOT NULL, "createdById" integer, "updatedById" integer, "deletedById" integer, "mealId" integer, "ingredientId" integer, CONSTRAINT "PK_a04f71e53e3b7e61820902c5fa2" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "meal" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP DEFAULT now(), "deletedAt" TIMESTAMP, "version" integer NOT NULL DEFAULT '1', "name" character varying NOT NULL, "type" character varying NOT NULL DEFAULT 'Other', "protein" double precision NOT NULL, "fat" double precision NOT NULL, "carbs" double precision NOT NULL, "sugar" double precision NOT NULL, "calories" double precision NOT NULL, "image" character varying, "portions" integer NOT NULL, "createdById" integer, "updatedById" integer, "deletedById" integer, "fridgeId" integer, CONSTRAINT "PK_ada510a5aba19e6bb500f8f7817" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "fridge" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP DEFAULT now(), "deletedAt" TIMESTAMP, "version" integer NOT NULL DEFAULT '1', "createdById" integer, "updatedById" integer, "deletedById" integer, CONSTRAINT "PK_27ce3d8ff1f4465f90e7c2a9b56" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "log" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP DEFAULT now(), "deletedAt" TIMESTAMP, "version" integer NOT NULL DEFAULT '1', "createdById" integer, "updatedById" integer, "deletedById" integer, "userId" integer, "mealId" integer, CONSTRAINT "PK_350604cbdf991d5930d9e618fbd" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP DEFAULT now(), "deletedAt" TIMESTAMP, "version" integer NOT NULL DEFAULT '1', "uuid" uuid NOT NULL, "username" character varying NOT NULL, "password" character varying(255) NOT NULL, "active" boolean NOT NULL DEFAULT true, "createdById" integer, "updatedById" integer, "deletedById" integer, "fridgeId" integer, CONSTRAINT "UQ_a95e949168be7b7ece1a2382fed" UNIQUE ("uuid"), CONSTRAINT "UQ_78a916df40e02a9deb1c4b75edb" UNIQUE ("username"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
         await queryRunner.query(`ALTER TABLE "ingredient" ADD CONSTRAINT "FK_35789aa893276fa75ddb1f8aea4" FOREIGN KEY ("createdById") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "ingredient" ADD CONSTRAINT "FK_aea1200eb1eb4346f5e190c54a6" FOREIGN KEY ("updatedById") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -61,6 +62,7 @@ export class Init1746100901501 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "ingredient" DROP CONSTRAINT "FK_aea1200eb1eb4346f5e190c54a6"`);
         await queryRunner.query(`ALTER TABLE "ingredient" DROP CONSTRAINT "FK_35789aa893276fa75ddb1f8aea4"`);
         await queryRunner.query(`DROP TABLE "user"`);
+        await queryRunner.query(`DROP TABLE "log"`);
         await queryRunner.query(`DROP TABLE "fridge"`);
         await queryRunner.query(`DROP TABLE "meal"`);
         await queryRunner.query(`DROP TABLE "meal_ingredient"`);
