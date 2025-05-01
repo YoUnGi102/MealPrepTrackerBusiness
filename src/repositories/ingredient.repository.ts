@@ -23,5 +23,4 @@ const addIngredient = async (data: Partial<Ingredient>): Promise<Ingredient> => 
   return ingredient;
 }
 
-
 export { getIngredientsByName, addIngredient};

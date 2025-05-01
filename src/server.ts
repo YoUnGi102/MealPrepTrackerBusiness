@@ -11,12 +11,10 @@ dotenv.config();
 
 const NODE_ENV = process.env.NODE_ENV
 
-const app = express();
-app.use(express.json());
-
 const allowedOrigins = [
-  process.env.FRONTEND_URL
+  process.env.FRONTEND_URL,
 ]
+
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
     if (
@@ -32,15 +30,17 @@ const corsOptions: cors.CorsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
-app.use(errorMiddleware)
+const app = express();
+
 
 AppDataSource.initialize().then(() => {
   logger.info('DB initialized');
   const PORT = process.env.PORT || 5000;
 
-  // Register routes
+  app.use(cors(corsOptions));
+  app.use(express.json());  
   app.use('/api/', routes_v1);
+  app.use(errorMiddleware)
 
   app.listen(PORT, () => {
     if (NODE_ENV != 'production')logger.info(`Listening on localhost:${PORT}`);

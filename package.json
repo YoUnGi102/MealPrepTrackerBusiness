@@ -27,8 +27,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typeorm": "node --loader ts-node/esm ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run typeorm -- migration:generate -d src/data-source.ts src/database/migrations/Init",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "migration:run": "npm run typeorm -- migration:run -d src/data-source.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/data-source.ts"
   },
@@ -59,6 +59,7 @@
     "@types/node": "^22.14.1",
     "chai": "^5.2.0",
     "chai-http": "^5.1.1",
+    "cross-env": "^7.0.3",
     "mocha": "^11.1.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
