@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import dotenv from 'dotenv';
-import {User, Ingredient} from './database/entities'
+import {User, Ingredient, MealIngredient, AuditableEntityUUID, AuditableEntity, Meal, Fridge} from './database/entities'
 
 dotenv.config();
 
@@ -12,10 +12,10 @@ const AppDataSource = new DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    synchronize: false, // never true in production
+    synchronize: process.env.NODE_ENV !== 'production', // never true in production
     logging: true,
     entities: [
-        User, Ingredient
+        User, Ingredient, MealIngredient, Meal, Fridge, AuditableEntityUUID, AuditableEntity
     ],
     migrations: [
         process.env.NODE_ENV === 'production'

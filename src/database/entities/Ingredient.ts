@@ -1,33 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { User } from './User';
+import { MacroEntity } from './MacroEntity';
+import { MealIngredient } from './MealIngredient';
 
 @Entity()
-export class Ingredient {
-  @PrimaryGeneratedColumn()
-  id!: number;
+export class Ingredient extends MacroEntity {
 
-  @Column({ type: 'varchar' })
-  name: string;
-
-  @Column({ type: 'varchar', default: "Other" })
-  type: string;
-
-  @Column({ type: 'float' })
-  protein: number;
-
-  @Column({ type: 'float' })
-  fat: number;
-
-  @Column({ type: 'float' })
-  carbs: number;
-
-  @Column({ type: 'float' })
-  sugar: number;
-
-  @Column({type: 'float'})
-  calories: number;
-
-  @Column({ type: 'varchar', nullable: true})
-  image: string;
+  @OneToMany(() => MealIngredient, mealIngredient => mealIngredient.ingredient)
+  mealIngredients?: MealIngredient[];
 
   constructor(
     name: string,
@@ -36,16 +16,10 @@ export class Ingredient {
     fat: number,
     carbs: number,
     sugar: number,
-    image: string,
     calories: number,
+    image: string,
+    createdBy: User,
   ) {
-    this.name = name;
-    this.type = type;
-    this.protein = protein;
-    this.fat = fat;
-    this.carbs = carbs;
-    this.sugar = sugar;
-    this.calories = calories;
-    this.image = image;
+    super(name, type, protein, fat, carbs, sugar, calories, createdBy, image);
   }
 }

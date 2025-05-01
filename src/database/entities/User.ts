@@ -1,22 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { AuditableEntityUUID } from './AuditableEntityUUID';
+import { Fridge } from './Fridge';
 
 @Entity()
-export class User {
+export class User extends AuditableEntityUUID {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column({ type: 'varchar', unique: true })
   username: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  @Exclude() // Ensure proper import of @Exclude decorator
+  @Column({ type: 'varchar', length: 255, select: false })
   password: string;
 
   @Column({ type: 'boolean', default: true })
   active: boolean;
 
-  constructor(username: string, password: string, active: boolean = true) {
+  @ManyToOne(() => Fridge, fridge => fridge.users)
+  fridge: Fridge;
+
+  constructor(username: string, password: string, active: boolean = true, fridge: Fridge) {
+    super();
+    this.fridge = fridge;
     this.username = username;
     this.password = password;
     this.active = active;
