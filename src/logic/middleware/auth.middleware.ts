@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger';
-import { CustomError } from './error.middleware';
 import { getUserByUsername } from 'src/repositories/user.repository';
+import { ERRORS } from '../utils/errorMessages';
 
 export const authMiddleware = async (
   req: Request,
@@ -13,23 +13,23 @@ export const authMiddleware = async (
   const authHeader = req.headers.authorization;
   const token = authHeader?.split(' ')[1];
 
-  logger.debug(token);
-
-  if (!token) {
-    res.status(400).json({ message: 'No token provided' });
-    return;
-  }
+  logger.debug(`Authorization: ${token}`);
 
   try {
+
+    if(!token){
+      throw ERRORS.AUTH.TOKEN_NOT_PROVIDED(`No token was provided`);
+    }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
     if (!decoded) {
-      throw new CustomError(401, 'Token could not be decoded');
+      throw ERRORS.AUTH.TOKEN_INVALID(`Token ${token} could not be decoded`);
     }
 
     logger.debug(JSON.stringify(decoded));
 
     if (typeof decoded === 'string' || !('username' in decoded)) {
-      throw new CustomError(401, 'Invalid token payload');
+      throw ERRORS.AUTH.TOKEN_INVALID(`Invalid token payload:\n ${decoded}\nfor token - ${token}`);
     }
 
     const user = await getUserByUsername(decoded.username);
@@ -37,9 +37,8 @@ export const authMiddleware = async (
     if (user) {
       req.user = user;
     } else {
-      throw new CustomError(404, 'User not found');
+      throw ERRORS.AUTH.USER_NOT_FOUND(`User ${user} was not found`)
     }
-    next();
   } catch (error) {
     next(error);
   }

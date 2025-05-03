@@ -6,14 +6,14 @@ import {
   authUser,
 } from '../../repositories/user.repository';
 import { User } from '../../database/entities/User';
-import logger from '../utils/logger';
+import { ERRORS } from '../utils/errorMessages';
 
 export const register = async (
   username: string,
   password: string,
 ): Promise<Partial<User>> => {
   const existing = await getUserByUsername(username);
-  if (existing) throw new Error('User already exists');
+  if (existing) throw ERRORS.USER.ALREADY_EXISTS(`User with username ${username} already exists`)
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = await createUser(username, hashedPassword);
@@ -26,12 +26,10 @@ export const login = async (
   password: string,
 ): Promise<{ token: string }> => {
   const user = await authUser(username);
-  if (!user) throw new Error('User not found');
+  if (!user) throw ERRORS.USER.NOT_FOUND(`User with username ${username} was not found`)
 
   const isValid = await bcrypt.compare(password, user.password);
-  if (!isValid) throw new Error('Invalid credentials');
-
-  logger.debug(JSON.stringify({ user }));
+  if (!isValid) throw ERRORS.AUTH.INVALID_CREDENTIALS(`Credentials: {username: ${username}, password: ${password}} are invalid`);
 
   const token = jwt.sign(
     { username: user.username, uuid: user.uuid },

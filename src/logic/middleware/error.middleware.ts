@@ -26,7 +26,7 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
-  logger.error(`[ERROR]: ${req.baseUrl} - ${err.message}`);
+  logger.error(`[ERROR]: ${req.originalUrl} - ${err.internalMessage}`);
   res.status(err.status || 500).json({
     success: false,
     message: err.message || 'Internal Server Error',

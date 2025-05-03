@@ -1,4 +1,5 @@
 import { CustomError } from '../middleware/error.middleware';
+import {Response} from 'express';
 
 export const STATUS = {
   // SUCCESS
@@ -19,13 +20,19 @@ export const STATUS = {
 export const MESSAGES = {
   // AUTH
   AUTH_USER_NOT_FOUND: { message: 'User not found', status: STATUS.NOT_FOUND },
-  AUTH_INVALID_CREDENTIALS: { message: 'Invalid username or password', status: STATUS.CONFLICT },
+  AUTH_INVALID_CREDENTIALS: { message: 'Invalid username or password', status: STATUS.BAD_REQUEST },
   AUTH_TOKEN_INVALID: { message: 'Invalid or expired token', status: STATUS.UNAUTHORIZED },
+  AUTH_TOKEN_PAYLOAD_INVALID: {message: 'Invalid token payload', status: STATUS.UNAUTHORIZED},
+  AUTH_TOKEN_NOT_PROVIDED: {message: 'Token not provided', status: STATUS.BAD_REQUEST},
+  AUTH_TOKEN_EXPIRED: {message: 'Token has expired', status: STATUS.UNAUTHORIZED},
 
   // USER
   USER_ALREADY_EXISTS: { message: 'User already exists', status: STATUS.CONFLICT },
   USER_NOT_FOUND: { message: 'User not found', status: STATUS.NOT_FOUND },
   USER_FORBIDDEN_ACTION: { message: 'You are not allowed to perform this action', status: STATUS.FORBIDDEN },
+
+  // FRIDGE
+  FRIDGE_NOT_FOUND: { message: 'Fridge not found', status: STATUS.NOT_FOUND},
 
   // MEAL
   MEAL_NOT_FOUND: { message: 'Meal not found', status: STATUS.NOT_FOUND },
@@ -46,6 +53,8 @@ interface ErrorMessage {
   message: string;
 }
 
+export const sendStatus = (res: Response, errorMessage: ErrorMessage) => res.status(errorMessage.status).send(errorMessage.message)
+
 const throwError = (errorData: ErrorMessage, internalMessage?: string) =>
   new CustomError(errorData.status, errorData.message, internalMessage);
 
@@ -54,6 +63,7 @@ export const ERRORS = {
     USER_NOT_FOUND: (internalMessage?: string) => throwError(MESSAGES.AUTH_USER_NOT_FOUND, internalMessage),
     INVALID_CREDENTIALS: (internalMessage?: string) => throwError(MESSAGES.AUTH_INVALID_CREDENTIALS, internalMessage),
     TOKEN_INVALID: (internalMessage?: string) => throwError(MESSAGES.AUTH_TOKEN_INVALID, internalMessage),
+    TOKEN_NOT_PROVIDED: (internalMessage?: string) => throwError(MESSAGES.AUTH_TOKEN_EXPIRED, internalMessage),
   },
   USER: {
     ALREADY_EXISTS: (internalMessage?: string) => throwError(MESSAGES.USER_ALREADY_EXISTS, internalMessage),
@@ -68,6 +78,9 @@ export const ERRORS = {
   INGREDIENT: {
     NOT_FOUND: (internalMessage?: string) => throwError(MESSAGES.INGREDIENT_NOT_FOUND, internalMessage),
     ALREADY_EXISTS: (internalMessage?: string) => throwError(MESSAGES.INGREDIENT_ALREADY_EXISTS, internalMessage),
+  },
+  FRIDGE: {
+    NOT_FOUND: (internalMessage?: string) => throwError(MESSAGES.FRIDGE_NOT_FOUND, internalMessage),
   },
   GENERAL: {
     INTERNAL: (internalMessage?: string) => throwError(MESSAGES.GENERAL_INTERNAL_ERROR, internalMessage),

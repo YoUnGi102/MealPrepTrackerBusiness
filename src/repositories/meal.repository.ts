@@ -2,7 +2,7 @@ import AppDataSource from '../data-source';
 import logger from 'src/logic/utils/logger';
 import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
 import { MealDTO } from 'src/logic/types/Meal';
-import { CustomError } from 'src/logic/middleware/error.middleware';
+import { ERRORS } from 'src/logic/utils/errorMessages';
 
 // const mealRepo = AppDataSource.getRepository(Meal);
 // const mealIngredientRepo = AppDataSource.getRepository(MealIngredient);
@@ -10,7 +10,7 @@ import { CustomError } from 'src/logic/middleware/error.middleware';
 
 export const addMeal = async (user: User, data: MealDTO) => {
   if (!user.fridge) {
-    throw new CustomError(400, 'User.fridge is undefined');
+    throw ERRORS.FRIDGE.NOT_FOUND(`Fridge for user ${user.id} could not be located`)
   }
 
   return await AppDataSource.transaction(async (transactionalEntityManager) => {
@@ -26,10 +26,7 @@ export const addMeal = async (user: User, data: MealDTO) => {
           id: mi.ingredientId,
         });
         if (!ingredient) {
-          throw new CustomError(
-            400,
-            `No ingredient with id ${mi.ingredientId} was found`,
-          );
+          throw ERRORS.INGREDIENT.NOT_FOUND(`Ingredient with id ${mi.ingredientId} was not found`);
         }
 
         const result = mealIngredientRepo.create({

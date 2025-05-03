@@ -12,7 +12,9 @@ const logger = winston.createLogger({
     }),
   ),
   transports: [
-    new winston.transports.Console(),
+    new winston.transports.Console({
+      level: NODE_ENV === 'production' ? 'info' : 'debug',
+    }),
     new winston.transports.DailyRotateFile({
       filename: 'logs/%DATE%-app.log',
       datePattern: 'YYYY-MM-DD', 
