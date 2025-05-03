@@ -26,14 +26,14 @@ export const authMiddleware = async (
       throw new CustomError(401, 'Token could not be decoded');
     }
 
-    logger.debug(JSON.stringify(decoded))
+    logger.debug(JSON.stringify(decoded));
 
     if (typeof decoded === 'string' || !('username' in decoded)) {
       throw new CustomError(401, 'Invalid token payload');
     }
 
     const user = await getUserByUsername(decoded.username);
-    logger.debug(JSON.stringify(user))
+    logger.debug(JSON.stringify(user));
     if (user) {
       req.user = user;
     } else {

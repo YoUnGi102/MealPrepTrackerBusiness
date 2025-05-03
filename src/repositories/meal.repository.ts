@@ -1,17 +1,12 @@
 import AppDataSource from '../data-source';
 import logger from 'src/logic/utils/logger';
-import {
-  Ingredient,
-  Meal,
-  MealIngredient,
-  User,
-} from 'src/database/entities';
+import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
 import { MealDTO } from 'src/logic/types/Meal';
 import { CustomError } from 'src/logic/middleware/error.middleware';
 
-const mealRepo = AppDataSource.getRepository(Meal);
-const mealIngredientRepo = AppDataSource.getRepository(MealIngredient);
-const ingredientRepo = AppDataSource.getRepository(Ingredient);
+// const mealRepo = AppDataSource.getRepository(Meal);
+// const mealIngredientRepo = AppDataSource.getRepository(MealIngredient);
+// const ingredientRepo = AppDataSource.getRepository(Ingredient);
 
 export const addMeal = async (user: User, data: MealDTO) => {
   if (!user.fridge) {
@@ -26,9 +21,14 @@ export const addMeal = async (user: User, data: MealDTO) => {
     // Create ingredients
     const ingredients: MealIngredient[] = await Promise.all(
       data.ingredients.map(async (mi) => {
-        const ingredient = await ingredientRepo.findOneBy({ id: mi.ingredientId });
+        const ingredient = await ingredientRepo.findOneBy({
+          id: mi.ingredientId,
+        });
         if (!ingredient) {
-          throw new CustomError(400, `No ingredient with id ${mi.ingredientId} was found`);
+          throw new CustomError(
+            400,
+            `No ingredient with id ${mi.ingredientId} was found`,
+          );
         }
 
         const result = mealIngredientRepo.create({

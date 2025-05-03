@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CustomError } from 'src/logic/middleware/error.middleware';
 import logger from 'src/logic/utils/logger';
-import * as mealService from '../../logic/services/meal.service'
+import * as mealService from '../../logic/services/meal.service';
 
 export const postMeal = async (
   req: Request,

@@ -25,14 +25,13 @@ export const login = async (
   username: string,
   password: string,
 ): Promise<{ token: string }> => {
-  console.log(JSON.stringify({username, password}))
   const user = await authUser(username);
   if (!user) throw new Error('User not found');
 
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) throw new Error('Invalid credentials');
 
-  logger.debug(JSON.stringify({user}))
+  logger.debug(JSON.stringify({ user }));
 
   const token = jwt.sign(
     { username: user.username, uuid: user.uuid },

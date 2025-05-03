@@ -1,6 +1,15 @@
 // src/data-source/test-data-source.ts
 import { DataSource } from 'typeorm';
-import { User, Fridge, Ingredient, Meal, MealIngredient, Log, AuditableEntityUUID, AuditableEntity } from '../src/database/entities';
+import {
+  User,
+  Fridge,
+  Ingredient,
+  Meal,
+  MealIngredient,
+  Log,
+  AuditableEntityUUID,
+  AuditableEntity,
+} from '../src/database/entities';
 
 export const TestDataSource = new DataSource({
   type: 'sqlite',
@@ -16,6 +25,6 @@ export const TestDataSource = new DataSource({
     Fridge,
     AuditableEntityUUID,
     AuditableEntity,
-    ],
+  ],
   logging: false,
 });

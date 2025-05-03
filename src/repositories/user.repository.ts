@@ -2,18 +2,17 @@ import { Fridge, User } from 'src/database/entities';
 import AppDataSource from '../data-source';
 
 const userRepo = AppDataSource.getRepository(User);
-const fridgeRepo = AppDataSource.getRepository(Fridge);
 
 export const authUser = async (username: string) => {
   return await userRepo.findOne({
-    where: {username},
+    where: { username },
     select: {
       username: true,
       uuid: true,
-      password: true
-    }
-  })
-}
+      password: true,
+    },
+  });
+};
 
 export const getUserByUsername = async (username: string) => {
   return await userRepo.findOne({
@@ -22,7 +21,10 @@ export const getUserByUsername = async (username: string) => {
   });
 };
 
-export const createUser = async (username: string, hashedPassword: string): Promise<User> => {
+export const createUser = async (
+  username: string,
+  hashedPassword: string,
+): Promise<User> => {
   return await AppDataSource.transaction(async (manager) => {
     let user = manager.create(User, { username, password: hashedPassword });
     user = await manager.save(user);

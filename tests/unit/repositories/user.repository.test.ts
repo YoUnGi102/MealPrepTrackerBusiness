@@ -1,4 +1,7 @@
-import { createUser, getUserByUsername } from '../../../src/repositories/user.repository';
+import {
+  createUser,
+  getUserByUsername,
+} from '../../../src/repositories/user.repository';
 import bcrypt from 'bcrypt';
 import { TestDataSource } from '../../test-data-source';
 import { User } from '../../../src/database/entities';
