@@ -15,7 +15,8 @@ export const addMeal = async (user: User, data: MealDTO) => {
 
   return await AppDataSource.transaction(async (transactionalEntityManager) => {
     const ingredientRepo = transactionalEntityManager.getRepository(Ingredient);
-    const mealIngredientRepo = transactionalEntityManager.getRepository(MealIngredient);
+    const mealIngredientRepo =
+      transactionalEntityManager.getRepository(MealIngredient);
     const mealRepo = transactionalEntityManager.getRepository(Meal);
 
     // Create ingredients
