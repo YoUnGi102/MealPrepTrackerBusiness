@@ -2,14 +2,23 @@ import { NextFunction, Request, Response } from 'express';
 import logger from '../utils/logger';
 
 export class CustomError extends Error {
+  public status: number;
+  public internalMessage: string;
+
   constructor(
-    public status: number = 500,
+    status: number = 500,
     message: string = 'Internal Server Error',
+    internalMessage?: string
   ) {
     super(message);
     this.name = 'CustomError';
+    this.status = status;
+    this.internalMessage = internalMessage || message;
+
+    Object.setPrototypeOf(this, CustomError.prototype);
   }
 }
+
 
 export const errorMiddleware = (
   err: CustomError,

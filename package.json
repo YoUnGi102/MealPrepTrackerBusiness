@@ -48,7 +48,8 @@
     "typeorm": "^0.3.22",
     "typescript-eslint": "^8.31.0",
     "uuid": "^11.1.0",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",

@@ -1,6 +1,8 @@
 import winston from 'winston';
+import 'winston-daily-rotate-file';
 
-// Create a custom logger
+const NODE_ENV = process.env.NODE_ENV
+
 const logger = winston.createLogger({
   level: 'debug', // default log level
   format: winston.format.combine(
@@ -10,12 +12,15 @@ const logger = winston.createLogger({
     }),
   ),
   transports: [
-    // Output logs to console
     new winston.transports.Console(),
-    // Optionally output logs to a file
-    new winston.transports.File({ filename: 'logs/app.log', level: 'info' }),
+    new winston.transports.DailyRotateFile({
+      filename: 'logs/%DATE%-app.log',
+      datePattern: 'YYYY-MM-DD', 
+      level: NODE_ENV === 'production' ? 'info' : 'debug', 
+      maxFiles: '14d', 
+      zippedArchive: true, 
+    }),
   ],
 });
 
-// Exports the logger instance
 export default logger;
