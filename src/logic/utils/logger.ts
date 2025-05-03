@@ -16,7 +16,7 @@ const logger = winston.createLogger({
       level: NODE_ENV === 'production' ? 'info' : 'debug',
     }),
     new winston.transports.DailyRotateFile({
-      filename: 'logs/%DATE%-app.log',
+      filename: 'logs/%DATE%.log',
       datePattern: 'YYYY-MM-DD', 
       level: NODE_ENV === 'production' ? 'info' : 'debug', 
       maxFiles: '14d', 

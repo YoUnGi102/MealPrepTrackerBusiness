@@ -4,5 +4,5 @@
   "execMap": {
     "ts": "tsx"
   },
-  "ignore": ["src/**/*.test.ts"]
+  "ignore": ["tests/**/*.test.ts"]
 }
