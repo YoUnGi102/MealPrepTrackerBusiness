@@ -1,10 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
 import { Ingredient } from '../../logic/types/Ingredient';
 import logger from '../../logic/utils/logger';
-import {
-  getIngredientsByName,
-  addIngredient,
-} from '../../logic/services/ingredient.service';
+import {createIngredientService} from '../../logic/services/ingredient.service.factory';
+import AppDataSource from 'src/data-source';
+
+const ingredientService = createIngredientService(AppDataSource);
 
 export const getIngredients = async (
   req: Request,
@@ -16,7 +16,7 @@ export const getIngredients = async (
   try {
     const { name } = req.query;
 
-    const ingredients: Ingredient[] = await getIngredientsByName(
+    const ingredients: Ingredient[] = await ingredientService.getIngredientsByName(
       name as string,
     );
 
@@ -38,7 +38,7 @@ export const postIngredient = async (
   logger.info(`POST api/ingredients/: ${JSON.stringify(req.body)}`);
 
   try {
-    const newIngredient = await addIngredient(req.body);
+    const newIngredient = await ingredientService.addIngredient(req.body);
     res.status(201).json(newIngredient);
   } catch (error) {
     next(error);

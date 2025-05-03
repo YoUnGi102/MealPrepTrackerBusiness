@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import logger from 'src/logic/utils/logger';
-import * as mealService from '../../logic/services/meal.service';
+import {createMealService} from '../../logic/services/meal.service.factory';
 import { ERRORS } from 'src/logic/utils/errorMessages';
+import AppDataSource from 'src/data-source';
+
+const mealService = createMealService(AppDataSource);
 
 export const postMeal = async (
   req: Request,

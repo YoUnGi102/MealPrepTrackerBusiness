@@ -1,19 +1,15 @@
-import AppDataSource from '../data-source';
 import logger from 'src/logic/utils/logger';
 import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
 import { MealDTO } from 'src/logic/types/Meal';
 import { ERRORS } from 'src/logic/utils/errorMessages';
+import { DataSource } from 'typeorm';
 
-// const mealRepo = AppDataSource.getRepository(Meal);
-// const mealIngredientRepo = AppDataSource.getRepository(MealIngredient);
-// const ingredientRepo = AppDataSource.getRepository(Ingredient);
-
-export const addMeal = async (user: User, data: MealDTO) => {
+export const addMeal = async (user: User, data: MealDTO, dataSource: DataSource) => {
   if (!user.fridge) {
     throw ERRORS.FRIDGE.NOT_FOUND(`Fridge for user ${user.id} could not be located`)
   }
 
-  return await AppDataSource.transaction(async (transactionalEntityManager) => {
+  return await dataSource.transaction(async (transactionalEntityManager) => {
     const ingredientRepo = transactionalEntityManager.getRepository(Ingredient);
     const mealIngredientRepo =
       transactionalEntityManager.getRepository(MealIngredient);
