@@ -15,7 +15,10 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "types": ["node", "express"],
-    "declaration": true
+    "declaration": true,
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

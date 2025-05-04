@@ -8,7 +8,7 @@ const validate = (schema: Joi.ObjectSchema) => {
     if (error) {
       res.status(400).json({
         message: 'Validation failed',
-        details: error.details.map(detail => detail.message),
+        details: error.details.map((detail) => detail.message),
       });
       return;
     }

@@ -1,0 +1,6 @@
+// tsconfig.eslint.json
+{
+    "extends": "./tsconfig.json",
+    "include": ["src", "tests", "*.ts", "tests/**/*.ts"]
+  }
+  

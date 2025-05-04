@@ -5,8 +5,8 @@ import {
   VersionColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { User } from "./User";
+} from 'typeorm';
+import { User } from './User';
 
 export abstract class AuditableEntity {
   @PrimaryGeneratedColumn()
@@ -16,25 +16,25 @@ export abstract class AuditableEntity {
   createdAt!: Date;
 
   @UpdateDateColumn({ nullable: true })
-  updatedAt?: Date;  
+  updatedAt?: Date;
 
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 
   @ManyToOne(() => User, { nullable: true })
   createdBy?: User;
-  
+
   @ManyToOne(() => User, { nullable: true })
   updatedBy?: User;
-  
+
   @ManyToOne(() => User, { nullable: true })
   deletedBy?: User;
 
-  @VersionColumn({default: 1})
+  @VersionColumn({ default: 1 })
   version: number;
 
   constructor(createdBy?: User) {
     this.createdBy = createdBy || undefined;
-    this.version = 1
+    this.version = 1;
   }
 }

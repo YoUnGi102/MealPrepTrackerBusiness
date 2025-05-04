@@ -1,13 +1,45 @@
-import AppDataSource from '../data-source';
-import { User } from '../database/entities/User';
+import { Fridge, User } from '@database/entities';
+import { DataSource } from 'typeorm';
 
-const userRepo = AppDataSource.getRepository(User);
-
-export const getUserByUsername = async (username: string) => {
-  return await userRepo.findOne({ where: { username } });
+export const authUser = async (username: string, dataSource: DataSource) => {
+  return await dataSource.getRepository(User).findOne({
+    where: { username },
+    select: {
+      username: true,
+      uuid: true,
+      password: true,
+    },
+  });
 };
 
-export const createUser = async (username: string, hashedPassword: string) => {
-  const user = userRepo.create({ username, password: hashedPassword });
-  return await userRepo.save(user);
+export const getUserByUsername = async (
+  username: string,
+  dataSource: DataSource,
+) => {
+  return await dataSource.getRepository(User).findOne({
+    where: { username },
+    relations: ['fridge'],
+  });
+};
+
+export const createUser = async (
+  username: string,
+  hashedPassword: string,
+  dataSource: DataSource,
+): Promise<User> => {
+  return await dataSource.transaction(async (manager) => {
+    let user = manager.create(User, { username, password: hashedPassword });
+    user = await manager.save(user);
+
+    const fridge = manager.create(Fridge, {
+      users: [user],
+      createdBy: user,
+    });
+    const savedFridge = await manager.save(fridge);
+
+    user.fridge = savedFridge;
+    await manager.save(user);
+
+    return user;
+  });
 };

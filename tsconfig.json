@@ -20,7 +20,14 @@
         "transform": "typescript-transform-paths",
         "afterDeclarations": true
       }
-    ]
+    ],
+    "paths": {
+      "@src/*": ["src/*"],
+      "@database/*": ["src/database/*"],
+      "@logic/*": ["src/logic/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@utils/": ["src/logic/utils/*"]
+    }
   },
   "include": ["src/**/*", "src/database/migrations/**/*"],
   "exclude": ["node_modules", "dist"]

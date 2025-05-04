@@ -1,29 +1,46 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger';
-import { CustomError } from './error.middleware';
+import { getUserByUsername } from 'src/repositories/user.repository';
+import { ERRORS } from '../utils/errorMessages';
+import AppDataSource from '@src/data-source';
 
-export const authMiddleware = (
+export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): void => {
+): Promise<void> => {
   logger.info(JSON.stringify(req.headers, null, 2));
   const authHeader = req.headers.authorization;
   const token = authHeader?.split(' ')[1];
 
-  if (!token) {
-    res.status(400).json({ message: 'No token provided' });
-    return;
-  }
+  logger.debug(`Authorization: ${token}`);
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-    if (!decoded){
-      throw new CustomError(401, 'Token could not be decoded');
+    if (!token) {
+      throw ERRORS.AUTH.TOKEN_NOT_PROVIDED(`No token was provided`);
     }
-    // (req as any).user = decoded;
-    next();
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    if (!decoded) {
+      throw ERRORS.AUTH.TOKEN_INVALID(`Token ${token} could not be decoded`);
+    }
+
+    logger.debug(JSON.stringify(decoded));
+
+    if (typeof decoded === 'string' || !('username' in decoded)) {
+      throw ERRORS.AUTH.TOKEN_INVALID(
+        `Invalid token payload:\n ${decoded}\nfor token - ${token}`,
+      );
+    }
+
+    const user = await getUserByUsername(decoded.username, AppDataSource);
+    logger.debug(JSON.stringify(user));
+    if (user) {
+      req.user = user;
+    } else {
+      throw ERRORS.AUTH.USER_NOT_FOUND(`User ${user} was not found`);
+    }
   } catch (error) {
     next(error);
   }
