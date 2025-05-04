@@ -1,4 +1,6 @@
 import 'reflect-metadata';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './config/swagger-output.json';
 import dotenv from 'dotenv';
 import AppDataSource from './data-source';
 import express from 'express';
@@ -40,11 +42,14 @@ AppDataSource.initialize()
     // Register routes
     app.use('/api/', routes_v1);
 
+    // Swagger
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
     app.use(errorMiddleware);
 
     app.listen(PORT, () => {
       if (NODE_ENV != 'production')
-        logger.info(`Listening on localhost:${PORT}`);
+        logger.info(`Listening on http://localhost:${PORT}`);
     });
   })
   .catch((error) => {
