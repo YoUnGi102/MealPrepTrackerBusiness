@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "v1.0.0",
-    "title": "LexBridge API",
-    "description": "LexBridge is a seamless platform that connects clients with verified legal experts, offering secure communication, easy appointment booking, transparent pricing, and comprehensive legal services all in one place."
+    "title": "MealPrepTracker API",
+    "description": "MealPrepTracker is an app that allows you to create recipes, use them to create meals, and track daily caloric intake"
   },
   "host": "localhost:5000",
   "basePath": "/",
