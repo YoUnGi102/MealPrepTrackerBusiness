@@ -1,4 +1,6 @@
 import type { Config } from 'jest';
+import { compilerOptions } from './tsconfig.jest.json';
+import { pathsToModuleNameMapper } from 'ts-jest';
 
 const config: Config = {
   preset: 'ts-jest/presets/default-esm',
@@ -9,8 +11,12 @@ const config: Config = {
     '^.+\\.ts$': ['ts-jest', { useESM: true, tsconfig: 'tsconfig.jest.json' }],
   },
   moduleNameMapper: {
-    '^src/(.*)$': '<rootDir>/src/$1',
+    ...pathsToModuleNameMapper(compilerOptions.paths, {
+      prefix: '<rootDir>/',
+    }),
+    '^@database/entities$': '<rootDir>/src/database/entities/index.ts',
   },
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
 };
 
 export default config;

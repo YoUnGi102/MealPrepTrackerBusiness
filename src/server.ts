@@ -39,7 +39,7 @@ AppDataSource.initialize()
 
     // Register routes
     app.use('/api/', routes_v1);
-    
+
     app.use(errorMiddleware);
 
     app.listen(PORT, () => {

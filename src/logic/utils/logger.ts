@@ -1,7 +1,7 @@
 import winston from 'winston';
 import 'winston-daily-rotate-file';
 
-const NODE_ENV = process.env.NODE_ENV
+const NODE_ENV = process.env.NODE_ENV;
 
 const logger = winston.createLogger({
   level: 'debug', // default log level
@@ -17,10 +17,10 @@ const logger = winston.createLogger({
     }),
     new winston.transports.DailyRotateFile({
       filename: 'logs/%DATE%.log',
-      datePattern: 'YYYY-MM-DD', 
-      level: NODE_ENV === 'production' ? 'info' : 'debug', 
-      maxFiles: '14d', 
-      zippedArchive: true, 
+      datePattern: 'YYYY-MM-DD',
+      level: NODE_ENV === 'production' ? 'info' : 'debug',
+      maxFiles: '14d',
+      zippedArchive: true,
     }),
   ],
 });

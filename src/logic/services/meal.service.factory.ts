@@ -6,6 +6,5 @@ import { DataSource } from 'typeorm';
 export const createMealService = (dataSource: DataSource) => ({
   addMeal: async (user: User, data: MealDTO): Promise<Meal> => {
     return await mealRepo.addMeal(user, data, dataSource);
-  }
-})
-
+  },
+});

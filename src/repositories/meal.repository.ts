@@ -4,9 +4,15 @@ import { MealDTO } from 'src/logic/types/Meal';
 import { ERRORS } from 'src/logic/utils/errorMessages';
 import { DataSource } from 'typeorm';
 
-export const addMeal = async (user: User, data: MealDTO, dataSource: DataSource) => {
+export const addMeal = async (
+  user: User,
+  data: MealDTO,
+  dataSource: DataSource,
+) => {
   if (!user.fridge) {
-    throw ERRORS.FRIDGE.NOT_FOUND(`Fridge for user ${user.id} could not be located`)
+    throw ERRORS.FRIDGE.NOT_FOUND(
+      `Fridge for user ${user.id} could not be located`,
+    );
   }
 
   return await dataSource.transaction(async (transactionalEntityManager) => {
@@ -22,7 +28,9 @@ export const addMeal = async (user: User, data: MealDTO, dataSource: DataSource)
           id: mi.ingredientId,
         });
         if (!ingredient) {
-          throw ERRORS.INGREDIENT.NOT_FOUND(`Ingredient with id ${mi.ingredientId} was not found`);
+          throw ERRORS.INGREDIENT.NOT_FOUND(
+            `Ingredient with id ${mi.ingredientId} was not found`,
+          );
         }
 
         const result = mealIngredientRepo.create({

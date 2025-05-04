@@ -8,7 +8,7 @@ export class CustomError extends Error {
   constructor(
     status: number = 500,
     message: string = 'Internal Server Error',
-    internalMessage?: string
+    internalMessage?: string,
   ) {
     super(message);
     this.name = 'CustomError';
@@ -19,14 +19,15 @@ export class CustomError extends Error {
   }
 }
 
-
 export const errorMiddleware = (
   err: CustomError,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  logger.error(`[ERROR]: ${req.method} - ${req.originalUrl} - ${err.internalMessage}`);
+  logger.error(
+    `[ERROR]: ${req.method} - ${req.originalUrl} - ${err.internalMessage}`,
+  );
   res.status(err.status || 500).json({
     success: false,
     message: err.message || 'Internal Server Error',

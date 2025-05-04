@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import logger from '../utils/logger';
 import { getUserByUsername } from 'src/repositories/user.repository';
 import { ERRORS } from '../utils/errorMessages';
+import AppDataSource from '@src/data-source';
 
 export const authMiddleware = async (
   req: Request,
@@ -16,8 +17,7 @@ export const authMiddleware = async (
   logger.debug(`Authorization: ${token}`);
 
   try {
-
-    if(!token){
+    if (!token) {
       throw ERRORS.AUTH.TOKEN_NOT_PROVIDED(`No token was provided`);
     }
 
@@ -29,15 +29,17 @@ export const authMiddleware = async (
     logger.debug(JSON.stringify(decoded));
 
     if (typeof decoded === 'string' || !('username' in decoded)) {
-      throw ERRORS.AUTH.TOKEN_INVALID(`Invalid token payload:\n ${decoded}\nfor token - ${token}`);
+      throw ERRORS.AUTH.TOKEN_INVALID(
+        `Invalid token payload:\n ${decoded}\nfor token - ${token}`,
+      );
     }
 
-    const user = await getUserByUsername(decoded.username);
+    const user = await getUserByUsername(decoded.username, AppDataSource);
     logger.debug(JSON.stringify(user));
     if (user) {
       req.user = user;
     } else {
-      throw ERRORS.AUTH.USER_NOT_FOUND(`User ${user} was not found`)
+      throw ERRORS.AUTH.USER_NOT_FOUND(`User ${user} was not found`);
     }
   } catch (error) {
     next(error);

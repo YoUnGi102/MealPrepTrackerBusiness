@@ -1,18 +1,16 @@
-import bcrypt from 'bcryptjs';
-import { createUserService } from '../../../src/services/user.service.factory';
+import { createAuthService } from "../../../src/logic/services/auth.service.factory";
+import * as userRepo from "../../../src/repositories/user.repository"
 import { TestDataSource } from '../../test-data-source';
-import { User } from '../../../src/database/entities/User';
-import { ERRORS } from '../../../../src/utils/errorMessages';
+import { ERRORS } from '../../../src/logic/utils/errorMessages';
 
-let userService: ReturnType<typeof createUserService>;
+let authService: ReturnType<typeof createAuthService>;
 
-beforeAll(async () => {
+beforeEach(async () => {
   await TestDataSource.initialize();
-  // Create service instance with test data source injected
-  userService = createUserService(TestDataSource);
+  authService = createAuthService(TestDataSource);
 });
 
-afterAll(async () => {
+afterEach(async () => {
   await TestDataSource.destroy();
 });
 
@@ -22,13 +20,13 @@ describe('User Service', () => {
     const password = 'password123';
 
     // Create user via service
-    const newUser = await userService.createUser(username, password);
+    const newUser = await authService.register(username, password);
 
     expect(newUser).toBeDefined();
     expect(newUser.username).toBe(username);
 
     // Fetch user by username via service
-    const found = await userService.getUserByUsername(username);
+    const found = await userRepo.getUserByUsername(username, TestDataSource);
     expect(found?.username).toBe(username);
     expect(found?.fridge).toBeDefined();
   });
@@ -38,11 +36,12 @@ describe('User Service', () => {
     const password = 'password123';
 
     // Create user
-    await userService.createUser(username, password);
+    await authService.register(username, password);
 
-    // Try to create the same user again and expect error
-    await expect(userService.createUser(username, password))
-      .rejects
-      .toThrowError(ERRORS.USER.ALREADY_EXISTS(`User with username ${username} already exists`));
+    await expect(
+      authService.register(username, password),
+    ).rejects.toThrow(
+      ERRORS.USER.ALREADY_EXISTS(`User with username ${username} already exists`),
+    );
   });
 });

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import {createAuthService} from '../../logic/services/auth.service.factory';
+import { createAuthService } from '@src/logic/services/auth.service.factory';
 import AppDataSource from 'src/data-source';
 import logger from '../../logic/utils/logger';
 

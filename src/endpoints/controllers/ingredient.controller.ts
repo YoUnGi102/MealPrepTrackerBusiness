@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { Ingredient } from '../../logic/types/Ingredient';
 import logger from '../../logic/utils/logger';
-import {createIngredientService} from '../../logic/services/ingredient.service.factory';
+import { createIngredientService } from '../../logic/services/ingredient.service.factory';
 import AppDataSource from 'src/data-source';
 
 const ingredientService = createIngredientService(AppDataSource);
@@ -16,9 +16,8 @@ export const getIngredients = async (
   try {
     const { name } = req.query;
 
-    const ingredients: Ingredient[] = await ingredientService.getIngredientsByName(
-      name as string,
-    );
+    const ingredients: Ingredient[] =
+      await ingredientService.getIngredientsByName(name as string);
 
     if (ingredients) {
       res.json({ data: ingredients });

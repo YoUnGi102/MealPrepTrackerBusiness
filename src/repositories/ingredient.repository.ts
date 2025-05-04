@@ -1,8 +1,11 @@
 import { DataSource, ILike } from 'typeorm';
-import { Ingredient } from '../database/entities/Ingredient';
-import logger from 'src/logic/utils/logger';
+import { Ingredient } from '@src/database/entities/Ingredient';
+import logger from '@src/logic/utils/logger';
 
-const getIngredientsByName = async (name: string, dataSource: DataSource): Promise<Ingredient[]> => {
+const getIngredientsByName = async (
+  name: string,
+  dataSource: DataSource,
+): Promise<Ingredient[]> => {
   const ingredients = await dataSource.getRepository(Ingredient).find({
     where: {
       name: ILike(`%${name}%`),
@@ -16,7 +19,7 @@ const getIngredientsByName = async (name: string, dataSource: DataSource): Promi
 
 const addIngredient = async (
   data: Partial<Ingredient>,
-  dataSource: DataSource
+  dataSource: DataSource,
 ): Promise<Ingredient> => {
   const ingredient = dataSource.getRepository(Ingredient).create(data);
   await dataSource.getRepository(Ingredient).save(ingredient);

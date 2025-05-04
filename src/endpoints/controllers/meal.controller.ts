@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import logger from 'src/logic/utils/logger';
-import {createMealService} from '../../logic/services/meal.service.factory';
+import { createMealService } from '../../logic/services/meal.service.factory';
 import { ERRORS } from 'src/logic/utils/errorMessages';
 import AppDataSource from 'src/data-source';
 
@@ -18,7 +18,7 @@ export const postMeal = async (
       const newIngredient = await mealService.addMeal(req.user, req.body);
       res.status(201).json(newIngredient);
     } else {
-      throw ERRORS.USER.NOT_FOUND(`User ${req.user} was not found`)
+      throw ERRORS.USER.NOT_FOUND(`User ${req.user} was not found`);
     }
   } catch (error) {
     next(error);
