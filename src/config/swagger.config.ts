@@ -6,7 +6,7 @@ const doc = {
     title: 'MealPrepTracker API',
     description: 'MealPrepTracker is an app that allows you to create recipes, use them to create meals, and track daily caloric intake'
   },
-  host: `localhost:${process.env.PORT || 5000}`,
+  host: process.env.BASE_URL || `localhost:${process.env.PORT || 5000}`,
   schemes: ['http', 'https'],
 };
 
