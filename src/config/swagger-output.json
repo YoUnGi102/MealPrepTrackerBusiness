@@ -6,7 +6,7 @@
     "description": "MealPrepTracker is an app that allows you to create recipes, use them to create meals, and track daily caloric intake"
   },
   "host": "localhost:5000",
-  "basePath": "/",
+  "basePath": "/api",
   "schemes": [
     "http",
     "https"
@@ -136,6 +136,16 @@
         "responses": {
           "201": {
             "description": "Created"
+          }
+        }
+      }
+    },
+    "/healh/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

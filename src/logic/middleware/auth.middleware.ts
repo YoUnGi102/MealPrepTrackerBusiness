@@ -38,6 +38,8 @@ export const authMiddleware = async (
     logger.debug(JSON.stringify(user));
     if (user) {
       req.user = user;
+      logger.debug(`User ${user.username} authenticated`);
+      next();
     } else {
       throw ERRORS.AUTH.USER_NOT_FOUND(`User ${user} was not found`);
     }
