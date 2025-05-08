@@ -25,7 +25,7 @@
       "@src/*": ["src/*"],
       "@database/*": ["src/database/*"],
       "@logic/*": ["src/logic/*"],
-      "@repositories/*": ["src/repositories/*"],
+      "@repositories/*": ["src/dataAccess/repositories/*"],
       "@utils/": ["src/logic/utils/*"]
     }
   },

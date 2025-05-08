@@ -15,10 +15,10 @@ export abstract class AuditableEntity {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn({ nullable: true })
+  @UpdateDateColumn({ nullable: true, select: false })
   updatedAt?: Date;
 
-  @DeleteDateColumn({ nullable: true })
+  @DeleteDateColumn({ nullable: true, select: false })
   deletedAt?: Date;
 
   @ManyToOne(() => User, { nullable: true })
@@ -30,7 +30,7 @@ export abstract class AuditableEntity {
   @ManyToOne(() => User, { nullable: true })
   deletedBy?: User;
 
-  @VersionColumn({ default: 1 })
+  @VersionColumn({ default: 1, select: false })
   version: number;
 
   constructor(createdBy?: User) {

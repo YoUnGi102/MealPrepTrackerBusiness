@@ -14,4 +14,5 @@ export const mealSchema = Joi.object({
     .min(1)
     .required(),
   image: Joi.string().uri().empty('').optional(),
+  saveOption: Joi.string().valid('m', 'r', 'mr').required(),
 });

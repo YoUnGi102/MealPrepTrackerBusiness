@@ -4,7 +4,8 @@ const doc = {
   info: {
     version: 'v1.0.0',
     title: 'MealPrepTracker API',
-    description: 'MealPrepTracker is an app that allows you to create recipes, use them to create meals, and track daily caloric intake'
+    description:
+      'MealPrepTracker is an app that allows you to create recipes, use them to create meals, and track daily caloric intake',
   },
   host: process.env.BASE_URL || `localhost:${process.env.PORT || 5000}`,
   schemes: ['http', 'https'],
@@ -15,4 +16,4 @@ const outputFile = './swagger-output.json';
 const endpointsFiles = ['src/endpoints/routes/index.ts'];
 
 // Generate Swagger output
-swaggerAutogen()(outputFile, endpointsFiles, doc)
+swaggerAutogen()(outputFile, endpointsFiles, doc);

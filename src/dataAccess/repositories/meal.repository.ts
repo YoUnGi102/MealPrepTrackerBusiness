@@ -1,12 +1,25 @@
 import logger from 'src/logic/utils/logger';
 import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
-import { MealDTO } from 'src/logic/types/Meal';
 import { ERRORS } from 'src/logic/utils/errorMessages';
 import { DataSource } from 'typeorm';
+import { plainToInstance } from 'class-transformer';
+import { MealDTO } from '../dto/MealDTO';
+import { MealRequest } from '@src/logic/types/Meal';
+
+export const getMealById = async (id: number, dataSource: DataSource) => {
+  return await dataSource.getRepository(Meal).findOne({
+    where: {
+      id,
+    },
+    select: {
+      ingredients: true,
+    },
+  });
+};
 
 export const addMeal = async (
   user: User,
-  data: MealDTO,
+  data: MealRequest,
   dataSource: DataSource,
 ) => {
   if (!user.fridge) {
@@ -54,6 +67,8 @@ export const addMeal = async (
       createdBy: user,
     });
 
-    return await mealRepo.save(meal);
+    const result = await mealRepo.save(meal);
+    logger.info(JSON.stringify(result));
+    return plainToInstance(MealDTO, result, { excludeExtraneousValues: true });
   });
 };

@@ -1,5 +1,5 @@
-import { createAuthService } from "../../../src/logic/services/auth.service.factory";
-import * as userRepo from "../../../src/repositories/user.repository"
+import { createAuthService } from '../../../src/logic/services/auth.service.factory';
+import * as userRepo from '../../../src/repositories/user.repository';
 import { TestDataSource } from '../../test-data-source';
 import { ERRORS } from '../../../src/logic/utils/errorMessages';
 
@@ -14,7 +14,7 @@ afterEach(async () => {
   await TestDataSource.destroy();
 });
 
-describe('User Service', () => {
+describe('User Repository', () => {
   it('should create and fetch a user by username', async () => {
     const username = 'testuser';
     const password = 'password123';
@@ -38,10 +38,10 @@ describe('User Service', () => {
     // Create user
     await authService.register(username, password);
 
-    await expect(
-      authService.register(username, password),
-    ).rejects.toThrow(
-      ERRORS.USER.ALREADY_EXISTS(`User with username ${username} already exists`),
+    await expect(authService.register(username, password)).rejects.toThrow(
+      ERRORS.USER.ALREADY_EXISTS(
+        `User with username ${username} already exists`,
+      ),
     );
   });
 });

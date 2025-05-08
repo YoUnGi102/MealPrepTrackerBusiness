@@ -1,12 +1,12 @@
-export interface MealIngredientDTO {
+export interface MealIngredientRequest {
   ingredientId: number;
   quantity: number;
 }
 
-export interface MealDTO {
+export interface MealRequest {
   name: string;
   type: string;
   portions: number;
-  ingredients: MealIngredientDTO[];
+  ingredients: MealIngredientRequest[];
   image?: string;
 }
