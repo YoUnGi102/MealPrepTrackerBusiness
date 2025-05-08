@@ -210,6 +210,20 @@ Logs are automatically rotated and stored under `logs/`, keeping the last 14 day
 
 ---
 
+## 🌐 Live Demo
+
+### 🔧 Backend (API)
+
+- **Base URL**: [`https://mealpreptracker.onrender.com/api/`](https://mealpreptracker.onrender.com/api/)
+- **Swagger Docs**: [`https://mealpreptracker.onrender.com/api-docs/`](https://mealpreptracker.onrender.com/api-docs/)
+  > Interactive API documentation auto-generated with Swagger.
+
+### 🖥️ Frontend (Client)
+
+- **Website**: [`https://mealpreptrackerfrontend.onrender.com/`](https://mealpreptrackerfrontend.onrender.com/)
+
+---
+
 ## 👤 Author
 
 **Tomáš Greš**  
