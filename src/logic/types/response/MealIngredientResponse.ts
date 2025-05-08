@@ -1,8 +1,8 @@
 import { MealIngredient, User } from '@src/database/entities';
 import { Expose, Exclude, Type } from 'class-transformer';
-import { IngredientDTO } from './IngredientDTO';
+import { IngredientResponse } from './IngredientResponse';
 
-export class MealIngredientDTO {
+export class MealIngredientResponse {
   @Expose()
   id!: number;
 
@@ -13,8 +13,8 @@ export class MealIngredientDTO {
   quantity!: number;
 
   @Expose()
-  @Type(() => IngredientDTO)
-  ingredient!: IngredientDTO;
+  @Type(() => IngredientResponse)
+  ingredient!: IngredientResponse;
 
   @Expose()
   createdAt!: Date;

@@ -85,6 +85,16 @@ export const MESSAGES = {
     message: 'Invalid input provided',
     status: STATUS.BAD_REQUEST,
   },
+
+  // REQUEST
+  REQUEST_PAGE_INDEX_NOT_FOUND: {
+    message: '"pageIndex" not specified',
+    status: STATUS.BAD_REQUEST,
+  },
+  REQUEST_PAGE_SIZE_NOT_FOUND: {
+    message: '"pageSize" not specified',
+    status: STATUS.BAD_REQUEST,
+  }
 };
 
 interface ErrorMessage {
@@ -141,4 +151,12 @@ export const ERRORS = {
     INVALID_INPUT: (internalMessage?: string) =>
       throwError(MESSAGES.GENERAL_INVALID_INPUT, internalMessage),
   },
+  REQUEST: {
+    PAGE_INDEX_NOT_FOUND: (internalMessage?: string) => {
+      throwError(MESSAGES.REQUEST_PAGE_INDEX_NOT_FOUND, internalMessage)
+    },
+    PAGE_SIZE_NOT_FOUND: (internalMessage?: string) => {
+      throwError(MESSAGES.REQUEST_PAGE_SIZE_NOT_FOUND, internalMessage)
+    }
+  }
 };

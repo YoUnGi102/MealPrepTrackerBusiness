@@ -1,7 +1,7 @@
 import { Ingredient } from '@src/database/entities';
 import { Expose, Exclude } from 'class-transformer';
 
-export class IngredientDTO {
+export class IngredientResponse {
   @Expose()
   name!: string;
 

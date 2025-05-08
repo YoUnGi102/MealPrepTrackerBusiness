@@ -1,14 +1,14 @@
 import { Fridge, Meal, User } from '@src/database/entities';
 import { Expose, Exclude, Type } from 'class-transformer';
-import { MealIngredientDTO } from './MealIngredientDTO';
+import { MealIngredientResponse } from './MealIngredientResponse';
 
-export class MealDTO {
+export class MealResponse {
   @Expose()
   id!: number;
 
   @Expose()
-  @Type(() => MealIngredientDTO)
-  ingredients!: MealIngredientDTO[];
+  @Type(() => MealIngredientResponse)
+  ingredients!: MealIngredientResponse[];
 
   @Expose()
   name!: string;
@@ -44,7 +44,7 @@ export class MealDTO {
   calories!: number;
 
   @Expose()
-  createdAt!: Date; 
+  createdAt!: Date;
 
   constructor(partial: Partial<Meal>) {
     Object.assign(this, partial);

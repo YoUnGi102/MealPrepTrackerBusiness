@@ -1,15 +1,25 @@
 import logger from 'src/logic/utils/logger';
 import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
 import { ERRORS } from 'src/logic/utils/errorMessages';
-import { DataSource } from 'typeorm';
-import { plainToInstance } from 'class-transformer';
-import { MealDTO } from '../dto/MealDTO';
+import { DataSource, ILike } from 'typeorm';
+import { MealResponse } from '../../logic/types/response/MealResponse';
 import { MealRequest } from '@src/logic/types/Meal';
+import {
+  PaginatedResult,
+  paginateResult,
+} from '@src/logic/types/typeorm/PaginatedResult';
 
-export const getMealById = async (id: number, dataSource: DataSource) => {
+export const getMealById = async (
+  user: User,
+  id: number,
+  dataSource: DataSource,
+) => {
   return await dataSource.getRepository(Meal).findOne({
     where: {
       id,
+      createdBy: {
+        id: user.id,
+      },
     },
     select: {
       ingredients: true,
@@ -17,11 +27,43 @@ export const getMealById = async (id: number, dataSource: DataSource) => {
   });
 };
 
+export const getFridgeMealsPaginated = async (
+  user: User,
+  filter: string,
+  pageIndex: number,
+  pageSize: number,
+  dataSource: DataSource,
+): Promise<PaginatedResult<Meal>> => {
+  if (!user.fridge) {
+    throw ERRORS.FRIDGE.NOT_FOUND;
+  }
+
+  const [meals, totalCount] = await dataSource
+    .getRepository(Meal)
+    .findAndCount({
+      where: {
+        name: ILike(`%${filter}%`),
+        fridge: {
+          id: user.fridge.id,
+        },
+      },
+      take: pageSize,
+      skip: pageIndex * pageSize,
+      relations: {
+        ingredients: {
+          ingredient: true,
+        },
+      },
+    });
+
+  return paginateResult(meals, pageIndex, pageSize, totalCount);
+};
+
 export const addMeal = async (
   user: User,
   data: MealRequest,
   dataSource: DataSource,
-) => {
+): Promise<Meal> => {
   if (!user.fridge) {
     throw ERRORS.FRIDGE.NOT_FOUND(
       `Fridge for user ${user.id} could not be located`,
@@ -67,8 +109,6 @@ export const addMeal = async (
       createdBy: user,
     });
 
-    const result = await mealRepo.save(meal);
-    logger.info(JSON.stringify(result));
-    return plainToInstance(MealDTO, result, { excludeExtraneousValues: true });
+    return await mealRepo.save(meal);
   });
 };
