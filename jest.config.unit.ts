@@ -1,22 +1,15 @@
-import type { Config } from 'jest';
-import { compilerOptions } from './tsconfig.jest.json';
-import { pathsToModuleNameMapper } from 'ts-jest';
+const { compilerOptions } = require('./tsconfig.jest.json');
+const { pathsToModuleNameMapper } = require('ts-jest');
 
-const config: Config = {
-  preset: 'ts-jest/presets/default-esm',
+module.exports = {
+  preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/tests/unit/**/*.test.ts'],
-  extensionsToTreatAsEsm: ['.ts'],
   transform: {
-    '^.+\\.ts$': ['ts-jest', { useESM: true, tsconfig: 'tsconfig.jest.json' }],
+    '^.+\\.ts$': 'ts-jest',
   },
-  moduleNameMapper: {
-    ...pathsToModuleNameMapper(compilerOptions.paths, {
-      prefix: '<rootDir>/',
-    }),
-    '^@database/entities$': '<rootDir>/src/database/entities/index.ts',
-  },
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/',
+  }),
   moduleDirectories: ['node_modules', '<rootDir>/src'],
 };
-
-export default config;

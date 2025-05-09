@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger';
-import { getUserByUsername } from '@src/dataAccess/repositories/user.repository';
+import { getUserByUsername } from '@src/repositories/user.repository';
 import { ERRORS } from '../utils/errorMessages';
 import AppDataSource from '@src/data-source';
 

@@ -2,7 +2,7 @@ import logger from 'src/logic/utils/logger';
 import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
 import { ERRORS } from 'src/logic/utils/errorMessages';
 import { DataSource, ILike } from 'typeorm';
-import { MealResponse } from '../../logic/types/response/MealResponse';
+import { MealResponse } from '../logic/types/response/MealResponse';
 import { MealRequest } from '@src/logic/types/Meal';
 import {
   PaginatedResult,
@@ -35,7 +35,7 @@ export const getFridgeMealsPaginated = async (
   dataSource: DataSource,
 ): Promise<PaginatedResult<Meal>> => {
   if (!user.fridge) {
-    throw ERRORS.FRIDGE.NOT_FOUND;
+    throw ERRORS.FRIDGE.NOT_FOUND();
   }
 
   const [meals, totalCount] = await dataSource

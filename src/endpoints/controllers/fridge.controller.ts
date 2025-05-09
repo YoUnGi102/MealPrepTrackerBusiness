@@ -20,9 +20,9 @@ export const getFridgeMeals = async (
   try {
     const { filter = '', pageIndex, pageSize } = req.query;
 
-    if (!pageIndex) throw ERRORS.REQUEST.PAGE_INDEX_NOT_FOUND;
-    if (!pageSize) throw ERRORS.REQUEST.PAGE_SIZE_NOT_FOUND;
-    if (!req.user) throw ERRORS.AUTH.INVALID_CREDENTIALS;
+    if (!pageIndex) {throw ERRORS.REQUEST.PAGE_INDEX_NOT_FOUND();}
+    if (!pageSize) {throw ERRORS.REQUEST.PAGE_SIZE_NOT_FOUND();}
+    if (!req.user) {throw ERRORS.AUTH.INVALID_CREDENTIALS();}
 
     const meals: PaginatedResult<MealResponse> =
       await mealService.getFridgeMealsPaginated(

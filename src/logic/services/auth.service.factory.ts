@@ -2,7 +2,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { DataSource } from 'typeorm';
-import * as userRepo from '../../dataAccess/repositories/user.repository';
+import * as userRepo from '../../repositories/user.repository';
 import { User } from '../../database/entities/User';
 import { ERRORS } from '../utils/errorMessages';
 

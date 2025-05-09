@@ -1,5 +1,5 @@
 import { Meal, User } from 'src/database/entities';
-import * as mealRepo from '../../dataAccess/repositories/meal.repository';
+import * as mealRepo from '../../repositories/meal.repository';
 import { MealRequest } from '../types/Meal';
 import { DataSource } from 'typeorm';
 import { MealResponse } from '@src/logic/types/response/MealResponse';

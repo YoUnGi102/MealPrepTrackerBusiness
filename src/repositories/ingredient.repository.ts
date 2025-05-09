@@ -1,10 +1,10 @@
 import { DataSource, ILike } from 'typeorm';
-import { Ingredient } from '../../database/entities';
-import logger from '../../logic/utils/logger';
+import { Ingredient } from '../database/entities';
+import logger from '../logic/utils/logger';
 import {
   PaginatedResult,
   paginateResult,
-} from '../../logic/types/typeorm/PaginatedResult';
+} from '../logic/types/typeorm/PaginatedResult';
 
 const getIngredientsByName = async (
   name: string,

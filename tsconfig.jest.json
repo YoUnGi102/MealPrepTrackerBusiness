@@ -1,17 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["jest"],
-    "module": "ESNext",
+    "types": ["jest", "node"],
+    "module": "CommonJS",
     "target": "ES2020",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@src/": ["src/*"]
+      "@src/*": ["src/*"],
+      "@database/*": ["src/database/*"],
+      "@logic/*": ["src/logic/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@utils/*": ["src/logic/utils/*"]
     }
   },
   "include": ["tests/**/*.ts", "src/**/*.ts"]

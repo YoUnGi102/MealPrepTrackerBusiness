@@ -1,26 +1,20 @@
-import { createAuthService } from '../../../src/logic/services/auth.service.factory';
+/// <reference types="jest" />
 import * as userRepo from '../../../src/repositories/user.repository';
 import { TestDataSource } from '../../test-data-source';
 import { ERRORS } from '../../../src/logic/utils/errorMessages';
+import '../../setup/setupTestDB'
 
-let authService: ReturnType<typeof createAuthService>;
-
-beforeEach(async () => {
-  await TestDataSource.initialize();
-  authService = createAuthService(TestDataSource);
-});
-
-afterEach(async () => {
-  await TestDataSource.destroy();
-});
+const TEST_USER = {
+  username: 'test',
+  password: 'test'
+}
 
 describe('User Repository', () => {
   it('should create and fetch a user by username', async () => {
-    const username = 'testuser';
-    const password = 'password123';
+    const {username, password} = TEST_USER;
 
-    // Create user via service
-    const newUser = await authService.register(username, password);
+    // Create user with user repository
+    const newUser = await userRepo.createUser(username, password, TestDataSource);
 
     expect(newUser).toBeDefined();
     expect(newUser.username).toBe(username);
@@ -32,16 +26,32 @@ describe('User Repository', () => {
   });
 
   it('should throw an error if username already exists', async () => {
-    const username = 'testuser';
-    const password = 'password123';
+    const {username, password} = TEST_USER;
 
-    // Create user
-    await authService.register(username, password);
+    await userRepo.createUser(username, password, TestDataSource);
 
-    await expect(authService.register(username, password)).rejects.toThrow(
+    await expect(userRepo.createUser(username, password, TestDataSource)).rejects.toThrow(
       ERRORS.USER.ALREADY_EXISTS(
         `User with username ${username} already exists`,
       ),
     );
   });
+  it('should not create a valid user when username missing', async () => {
+    const {password} = TEST_USER;
+    const username = '';
+
+    await expect(userRepo.createUser(username, password, TestDataSource)).rejects.toThrow(
+      ERRORS.USER.USERNAME_MISSING()
+    )
+
+  })
+  it('should not create a valid user when password missing', async () => {
+    const {username} = TEST_USER;
+    const password = ''
+
+    await expect(userRepo.createUser(username, password, TestDataSource)).rejects.toThrow(
+      ERRORS.USER.PASSWORD_MISSING()
+    )
+
+  })
 });
