@@ -2,9 +2,7 @@
 
 import * as ingredientRepo from '../../../src/repositories/ingredient.repository';
 import { TestDataSource } from '../../test-data-source';
-import { ERRORS } from '../../../src/logic/utils/errorMessages';
-import logger from '../../../src/logic/utils/logger';
-import '../../setup/setupTestDB'
+import '../../setup/setupTestDB';
 
 describe('Ingredient Repository', () => {
   it('should fetch 10 ingredients', async () => {

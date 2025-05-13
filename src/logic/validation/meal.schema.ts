@@ -15,4 +15,4 @@ export const mealSchema = Joi.object({
     .required(),
   image: Joi.string().uri().empty('').optional(),
   saveOption: Joi.string().valid('m', 'r', 'mr').required(),
-});
+}).options({ stripUnknown: true });

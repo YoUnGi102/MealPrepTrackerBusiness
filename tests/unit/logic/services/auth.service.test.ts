@@ -1,12 +1,7 @@
 /// <reference types="jest" />
 
-import { createAuthService } from "../../../../src/logic/services/auth.service.factory";
-import '../../../setup/setupTestDB'
-
-let authService: ReturnType<typeof createAuthService>;
+import '../../../setup/setupTestDB';
 
 describe('Auth service', () => {
-    it('should create user', () => {
-        
-    })
-})
+  it('should create user', () => {});
+});

@@ -5,11 +5,11 @@ import {
   postIngredient,
 } from 'src/endpoints/controllers/ingredient.controller';
 import validate from '../../logic/middleware/validation.middleware';
-import { ingredientSchema } from '../../logic/validation/ingredient.schema';
+import { ingredientAddSchema } from '../../logic/validation/ingredient.schema';
 
 const router = express.Router();
 
 router.get('/', authMiddleware, getIngredients);
-router.post('/', authMiddleware, validate(ingredientSchema), postIngredient);
+router.post('/', authMiddleware, validate(ingredientAddSchema), postIngredient);
 
 export default router;

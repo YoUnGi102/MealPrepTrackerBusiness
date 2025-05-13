@@ -2,12 +2,11 @@ import logger from 'src/logic/utils/logger';
 import { Ingredient, Meal, MealIngredient, User } from 'src/database/entities';
 import { ERRORS } from 'src/logic/utils/errorMessages';
 import { DataSource, ILike } from 'typeorm';
-import { MealResponse } from '../logic/types/response/MealResponse';
 import { MealRequest } from '@src/logic/types/Meal';
 import {
   PaginatedResult,
   paginateResult,
-} from '@src/logic/types/typeorm/PaginatedResult';
+} from '@src/logic/types/database/PaginatedResult';
 
 export const getMealById = async (
   user: User,
@@ -37,7 +36,7 @@ export const getFridgeMealsPaginated = async (
   if (!user.fridge) {
     throw ERRORS.FRIDGE.NOT_FOUND();
   }
-
+  
   const [meals, totalCount] = await dataSource
     .getRepository(Meal)
     .findAndCount({
@@ -56,7 +55,7 @@ export const getFridgeMealsPaginated = async (
       },
     });
 
-  return paginateResult(meals, pageIndex, pageSize, totalCount);
+    return paginateResult(meals, pageIndex, pageSize, totalCount);
 };
 
 export const addMeal = async (

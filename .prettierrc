@@ -6,15 +6,13 @@
   "printWidth": 80,
   "arrowParens": "always",
   "bracketSpacing": true,
-  "jsxBracketSameLine": false,
-  "endOfLine": "lf",
+  "bracketSameLine": true,
+  "endOfLine": "crlf",
   "quoteProps": "as-needed",
   "htmlWhitespaceSensitivity": "css",
   "proseWrap": "preserve",
   "embeddedLanguageFormatting": "auto",
   "requirePragma": false,
   "insertPragma": false,
-  "vueIndentScriptAndStyle": true,
-  "eslintIntegration": true,
-  "bracketSameLine": true
+  "vueIndentScriptAndStyle": true
 }

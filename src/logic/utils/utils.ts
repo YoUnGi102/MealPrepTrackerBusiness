@@ -1,5 +1,5 @@
 import { Macros } from 'src/logic/types/Macros';
-import { MealIngredient } from './entities';
+import { MealIngredient } from '../../database/entities';
 
 export const calculateMacros = (ingredients: MealIngredient[]): Macros => {
   const macros: Macros = {

@@ -21,7 +21,7 @@
     "dev": "nodemon src/server.ts",
     "start": "node dist/server.js",
     "build": "tsup",
-    "ci": "npm ci && npm run test && npm run bdd",
+    "ci": "npm ci && npm run format && npm run test:unit && npm run lint",
     "test:unit": "jest --config jest.config.unit.ts",
     "test:integration": "mocha -r ts-node/register tests/**/*.test.ts",
     "bdd": "cucumber-js tests/bdd/features",

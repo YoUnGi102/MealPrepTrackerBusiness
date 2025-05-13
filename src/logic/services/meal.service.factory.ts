@@ -1,10 +1,10 @@
-import { Meal, User } from 'src/database/entities';
+import { User } from 'src/database/entities';
 import * as mealRepo from '../../repositories/meal.repository';
 import { MealRequest } from '../types/Meal';
 import { DataSource } from 'typeorm';
 import { MealResponse } from '@src/logic/types/response/MealResponse';
 import { instanceToInstance, plainToInstance } from 'class-transformer';
-import { PaginatedResult } from '../types/typeorm/PaginatedResult';
+import { PaginatedResult } from '../types/database/PaginatedResult';
 
 export const createMealService = (dataSource: DataSource) => ({
   addMeal: async (user: User, data: MealRequest): Promise<MealResponse> => {

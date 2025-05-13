@@ -10,7 +10,7 @@ import { User } from './User';
 import { MealIngredient } from './MealIngredient';
 import { Fridge } from './Fridge';
 import { MacroEntity } from './MacroEntity';
-import { calculateMacros } from '../utils';
+import { calculateMacros } from '../../logic/utils/utils';
 
 @Entity()
 export class Meal extends MacroEntity {

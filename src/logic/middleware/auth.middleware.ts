@@ -14,8 +14,6 @@ export const authMiddleware = async (
   const authHeader = req.headers.authorization;
   const token = authHeader?.split(' ')[1];
 
-  logger.debug(`Authorization: ${token}`);
-
   try {
     if (!token) {
       throw ERRORS.AUTH.TOKEN_NOT_PROVIDED(`No token was provided`);
@@ -26,8 +24,6 @@ export const authMiddleware = async (
       throw ERRORS.AUTH.TOKEN_INVALID(`Token ${token} could not be decoded`);
     }
 
-    logger.debug(JSON.stringify(decoded));
-
     if (typeof decoded === 'string' || !('username' in decoded)) {
       throw ERRORS.AUTH.TOKEN_INVALID(
         `Invalid token payload:\n ${decoded}\nfor token - ${token}`,
@@ -35,10 +31,8 @@ export const authMiddleware = async (
     }
 
     const user = await getUserByUsername(decoded.username, AppDataSource);
-    logger.debug(JSON.stringify(user));
     if (user) {
       req.user = user;
-      logger.debug(`User ${user.username} authenticated`);
       next();
     } else {
       throw ERRORS.AUTH.USER_NOT_FOUND(`User ${user} was not found`);

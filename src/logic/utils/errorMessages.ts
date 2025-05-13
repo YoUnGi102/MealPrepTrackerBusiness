@@ -51,8 +51,14 @@ export const MESSAGES = {
     message: 'You are not allowed to perform this action',
     status: STATUS.FORBIDDEN,
   },
-  USER_USERNAME_MISSING: { message: 'User.username is missing', status: STATUS.BAD_REQUEST},
-  USER_PASSWORD_NOT_MISSING: { message: 'User.password is missing', status: STATUS.BAD_REQUEST},
+  USER_USERNAME_MISSING: {
+    message: 'User.username is missing',
+    status: STATUS.BAD_REQUEST,
+  },
+  USER_PASSWORD_NOT_MISSING: {
+    message: 'User.password is missing',
+    status: STATUS.BAD_REQUEST,
+  },
 
   // FRIDGE
   FRIDGE_NOT_FOUND: { message: 'Fridge not found', status: STATUS.NOT_FOUND },
@@ -96,7 +102,7 @@ export const MESSAGES = {
   REQUEST_PAGE_SIZE_NOT_FOUND: {
     message: '"pageSize" not specified',
     status: STATUS.BAD_REQUEST,
-  }
+  },
 };
 
 interface ErrorMessage {
@@ -107,7 +113,10 @@ interface ErrorMessage {
 export const sendStatus = (res: Response, errorMessage: ErrorMessage) =>
   res.status(errorMessage.status).send(errorMessage.message);
 
-const throwError = (errorData: ErrorMessage, internalMessage?: string): CustomError =>
+const throwError = (
+  errorData: ErrorMessage,
+  internalMessage?: string,
+): CustomError =>
   new CustomError(errorData.status, errorData.message, internalMessage);
 
 export const ERRORS = {
@@ -130,7 +139,7 @@ export const ERRORS = {
       throwError(MESSAGES.USER_FORBIDDEN_ACTION, internalMessage),
     PASSWORD_MISSING: (internalMessage?: string) =>
       throwError(MESSAGES.USER_PASSWORD_NOT_MISSING, internalMessage),
-    USERNAME_MISSING: (internalMessage?: string) => 
+    USERNAME_MISSING: (internalMessage?: string) =>
       throwError(MESSAGES.USER_USERNAME_MISSING, internalMessage),
   },
   MEAL: {
@@ -158,9 +167,9 @@ export const ERRORS = {
       throwError(MESSAGES.GENERAL_INVALID_INPUT, internalMessage),
   },
   REQUEST: {
-    PAGE_INDEX_NOT_FOUND: (internalMessage?: string) => 
+    PAGE_INDEX_NOT_FOUND: (internalMessage?: string) =>
       throwError(MESSAGES.REQUEST_PAGE_INDEX_NOT_FOUND, internalMessage),
-    PAGE_SIZE_NOT_FOUND: (internalMessage?: string) => 
-      throwError(MESSAGES.REQUEST_PAGE_SIZE_NOT_FOUND, internalMessage)
-  }
+    PAGE_SIZE_NOT_FOUND: (internalMessage?: string) =>
+      throwError(MESSAGES.REQUEST_PAGE_SIZE_NOT_FOUND, internalMessage),
+  },
 };

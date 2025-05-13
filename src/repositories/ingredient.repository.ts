@@ -4,7 +4,7 @@ import logger from '../logic/utils/logger';
 import {
   PaginatedResult,
   paginateResult,
-} from '../logic/types/typeorm/PaginatedResult';
+} from '../logic/types/database/PaginatedResult';
 
 const getIngredientsByName = async (
   name: string,
