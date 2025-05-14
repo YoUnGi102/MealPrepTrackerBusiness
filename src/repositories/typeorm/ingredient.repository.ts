@@ -1,12 +1,12 @@
 import { DataSource, ILike } from 'typeorm';
 import { Ingredient } from '@src/database/entities';
-import { IngredientRepository } from '../interfaces/IngredientRepository';
-import { PaginatedResult } from '@src/logic/types/database/PaginatedResult';
-import { getPaginatedResult } from '@src/repositories/implementations/paginatedResult';
+import { IIngredientRepository } from '../interfaces/IIngredientRepository';
+import { PaginatedResult } from '@src/logic/types/other/PaginatedResult';
+import { getPaginatedResult } from '@src/repositories/typeorm/paginatedResult';
 import logger from '@src/logic/utils/logger';
 import { ERRORS } from '@src/logic/utils/errorMessages';
 
-export class TypeormIngredientRepository implements IngredientRepository {
+export class TypeormIngredientRepository implements IIngredientRepository {
   constructor(private dataSource: DataSource) {}
 
   async addIngredient(data: Partial<Ingredient>): Promise<Ingredient> {

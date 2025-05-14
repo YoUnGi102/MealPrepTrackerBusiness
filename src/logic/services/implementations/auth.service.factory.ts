@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { DataSource } from 'typeorm';
 import { User } from '../../../database/entities/User';
 import { ERRORS } from '../../utils/errorMessages';
-import { TypeormUserRepository } from '../../../repositories/implementations/user.repository';
+import { TypeormUserRepository } from '../../../repositories/typeorm/user.repository';
 
 export const createAuthService = (dataSource: DataSource) => {
 

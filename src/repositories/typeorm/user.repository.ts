@@ -2,9 +2,9 @@
 import { DataSource } from 'typeorm';
 import { User, Fridge } from '@src/database/entities';
 import { ERRORS } from '@src/logic/utils/errorMessages';
-import { UserRepository } from '../interfaces/UserRepository';
+import { IUserRepository } from '../interfaces/IUserRepository';
 
-export class TypeormUserRepository implements UserRepository {
+export class TypeormUserRepository implements IUserRepository {
   constructor(private dataSource: DataSource) {}
 
   async authUser(username: string): Promise<User | null> {

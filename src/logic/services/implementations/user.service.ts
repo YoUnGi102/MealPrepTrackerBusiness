@@ -1,5 +1,5 @@
 import { User } from "@src/database/entities";
-import { TypeormUserRepository } from "@src/repositories/implementations/user.repository";
+import { TypeormUserRepository } from "@src/repositories/typeorm/user.repository";
 import { DataSource } from "typeorm";
 import { UserService } from "../interfaces/UserService";
 

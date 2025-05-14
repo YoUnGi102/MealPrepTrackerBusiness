@@ -1,8 +1,8 @@
 import { Log, Meal, User } from "@src/database/entities"
 import { Between, DataSource } from "typeorm"
-import { LogRepository } from "../interfaces/LogRepository"
+import { ILogRepository } from "../interfaces/ILogRepository"
 
-export class TypeormLogRepository implements LogRepository {
+export class TypeormLogRepository implements ILogRepository {
     constructor(private dataSource: DataSource) {}
 
     async addLog(user: User, mealId: number): Promise<Log> {

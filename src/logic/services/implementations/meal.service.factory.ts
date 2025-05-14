@@ -1,14 +1,14 @@
 import { User } from 'src/database/entities';
-import { MealRequest } from '../../types/request/Meal';
+import { MealRequest } from '../../types/request/MealRequest';
 import { DataSource } from 'typeorm';
 import { MealResponse } from '@src/logic/types/response/MealResponse';
 import { instanceToInstance, plainToInstance } from 'class-transformer';
-import { PaginatedResult } from '../../types/database/PaginatedResult';
-import { MealRepository } from '@src/repositories/interfaces/MealRepository';
-import { TypeormMealRepository } from '../../../repositories/implementations/meal.repository';
+import { PaginatedResult } from '../../types/other/PaginatedResult';
+import { IMealRepository } from '@src/repositories/interfaces/IMealRepository';
+import { TypeormMealRepository } from '../../../repositories/typeorm/meal.repository';
 
 export const createMealService = (dataSource: DataSource) => {
-  const mealRepo: MealRepository = new TypeormMealRepository(dataSource);
+  const mealRepo: IMealRepository = new TypeormMealRepository(dataSource);
 
   return {
     addMeal: async (user: User, data: MealRequest): Promise<MealResponse> => {

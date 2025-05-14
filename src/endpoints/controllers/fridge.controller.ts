@@ -4,7 +4,7 @@ import AppDataSource from 'src/data-source';
 import { createMealService } from '@src/logic/services/implementations/meal.service.factory';
 import { MealResponse } from '@src/logic/types/response/MealResponse';
 import { ERRORS } from '@src/logic/utils/errorMessages';
-import { PaginatedResult } from '@src/logic/types/database/PaginatedResult';
+import { PaginatedResult } from '@src/logic/types/other/PaginatedResult';
 
 const mealService = createMealService(AppDataSource);
 

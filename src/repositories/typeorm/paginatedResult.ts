@@ -1,4 +1,4 @@
-import { PaginatedResult, paginateResult } from "@src/logic/types/database/PaginatedResult";
+import { PaginatedResult, paginateResult } from "@src/logic/types/other/PaginatedResult";
 import { Repository } from "typeorm";
 
 export const getPaginatedResult = async (

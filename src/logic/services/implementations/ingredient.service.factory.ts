@@ -1,12 +1,12 @@
 // src/services/ingredient.service.factory.ts
 import { DataSource } from 'typeorm';
 import { Ingredient } from '../../../database/entities/Ingredient';
-import { TypeormIngredientRepository } from '../../../repositories/implementations/ingredient.repository';
-import { IngredientRepository } from '@src/repositories/interfaces/IngredientRepository';
-import { PaginatedResult } from '../../types/database/PaginatedResult';
+import { TypeormIngredientRepository } from '../../../repositories/typeorm/ingredient.repository';
+import { IIngredientRepository } from '@src/repositories/interfaces/IIngredientRepository';
+import { PaginatedResult } from '../../types/other/PaginatedResult';
 
 export const createIngredientService = (dataSource: DataSource) => {
-  const ingredientRepo: IngredientRepository = new TypeormIngredientRepository(dataSource)
+  const ingredientRepo: IIngredientRepository = new TypeormIngredientRepository(dataSource)
 
   return {
     getIngredientsByName: async (name: string): Promise<PaginatedResult<Ingredient>> => {

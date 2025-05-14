@@ -2,8 +2,8 @@
 
 import { ILike, DataSource } from 'typeorm';
 import { Ingredient, Meal, MealIngredient, User } from '@src/database/entities';
-import { MealRequest } from '@src/logic/types/request/Meal';
-import { PaginatedResult } from '@src/logic/types/database/PaginatedResult';
+import { MealRequest } from '@src/logic/types/request/MealRequest';
+import { PaginatedResult } from '@src/logic/types/other/PaginatedResult';
 import { getPaginatedResult } from './paginatedResult';
 import logger from '@src/logic/utils/logger';
 import { ERRORS } from '@src/logic/utils/errorMessages';

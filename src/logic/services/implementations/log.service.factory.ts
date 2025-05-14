@@ -1,8 +1,8 @@
 // src/services/ingredient.service.factory.ts
 import { DataSource } from 'typeorm';
-import { LogRepository, PeriodLog } from '@src/repositories/interfaces/LogRepository';
-import { TypeormLogRepository } from '@src/repositories/implementations/log.repository';
-import { LogService } from '../interfaces/LogService';
+import { ILogRepository, PeriodLog } from '@src/repositories/interfaces/ILogRepository';
+import { TypeormLogRepository } from '@src/repositories/typeorm/log.repository';
+import { ILogService } from '../interfaces/LogService';
 import { User } from '@src/database/entities';
 import { instanceToInstance, plainToInstance } from 'class-transformer';
 import { LogResponse } from '../../types/response/LogResponse';
@@ -10,12 +10,12 @@ import { endOfDay, startOfDay } from 'date-fns';
 import { calculateMacros } from '@src/database/utils/db.helper';
 import { ERRORS } from '../../utils/errorMessages';
 import logger from '../../utils/logger';
-import { MealRepository } from '@src/repositories/interfaces/MealRepository';
-import { TypeormMealRepository } from '@src/repositories/implementations/meal.repository';
+import { IMealRepository } from '@src/repositories/interfaces/IMealRepository';
+import { TypeormMealRepository } from '@src/repositories/typeorm/meal.repository';
 
-export const createLogService = (dataSource: DataSource): LogService  => {
-  const logRepository: LogRepository = new TypeormLogRepository(dataSource);
-  const mealRepository: MealRepository = new TypeormMealRepository(dataSource);
+export const createLogService = (dataSource: DataSource): ILogService  => {
+  const logRepository: ILogRepository = new TypeormLogRepository(dataSource);
+  const mealRepository: IMealRepository = new TypeormMealRepository(dataSource);
 
   return {
     addLog: async (user: User, mealId: number): Promise<LogResponse> => {

@@ -49,6 +49,7 @@
     "reflect-metadata": "^0.2.2",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
+    "tsyringe": "^4.10.0",
     "typeorm": "^0.3.22",
     "typescript-eslint": "^8.31.0",
     "uuid": "^11.1.0",
