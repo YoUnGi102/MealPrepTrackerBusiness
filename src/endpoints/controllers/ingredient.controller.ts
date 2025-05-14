@@ -1,12 +1,13 @@
 import { Response, Request, NextFunction } from 'express';
-import { Ingredient } from '../../logic/types/Ingredient';
+import { Ingredient } from '../../logic/types/core/Ingredient';
 import logger from '../../logic/utils/logger';
-import { createIngredientService } from '../../logic/services/ingredient.service.factory';
+import { createIngredientService } from '../../logic/services/implementations/ingredient.service.factory';
 import AppDataSource from 'src/data-source';
+import { PaginatedResult } from '@src/logic/types/database/PaginatedResult';
 
 const ingredientService = createIngredientService(AppDataSource);
 
-export const getIngredients = async (
+const getIngredients = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -16,7 +17,7 @@ export const getIngredients = async (
   try {
     const { name } = req.query;
 
-    const ingredients: Ingredient[] =
+    const ingredients: PaginatedResult<Ingredient> =
       await ingredientService.getIngredientsByName(name as string);
 
     if (ingredients) {
@@ -29,7 +30,24 @@ export const getIngredients = async (
   }
 };
 
-export const postIngredient = async (
+const getIngredientByBarcode = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  logger.info(`GET api/ingredients/barcode/{:barcode}: ${JSON.stringify(req.params)}`)
+
+  const {barcode} = req.params;
+
+  try {
+    const newIngredient = await ingredientService.getIngredientByBarcode(barcode);
+    res.status(201).json(newIngredient);
+  } catch (error) {
+    next(error);
+  }
+}
+
+const postIngredient = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -43,3 +61,5 @@ export const postIngredient = async (
     next(error);
   }
 };
+
+export default {getIngredients, getIngredientByBarcode, postIngredient}

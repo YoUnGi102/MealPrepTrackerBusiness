@@ -73,6 +73,10 @@ export const MESSAGES = {
     message: 'One or more ingredients are invalid',
     status: STATUS.BAD_REQUEST,
   },
+  MEAL_NO_PORTIONS: {
+    message: 'No portions for this meal',
+    status: STATUS.BAD_REQUEST
+  },
 
   // INGREDIENT
   INGREDIENT_NOT_FOUND: {
@@ -103,15 +107,22 @@ export const MESSAGES = {
     message: '"pageSize" not specified',
     status: STATUS.BAD_REQUEST,
   },
+
+  // LOG
+  LOG_NOT_FOUND: {
+    message: 'Log not found',
+    status: STATUS.NOT_FOUND
+  },
+  LOG_ID_INVALID: {
+    message: 'No "logId" recieved',
+    status: STATUS.BAD_REQUEST
+,  }
 };
 
 interface ErrorMessage {
   status: number;
   message: string;
 }
-
-export const sendStatus = (res: Response, errorMessage: ErrorMessage) =>
-  res.status(errorMessage.status).send(errorMessage.message);
 
 const throwError = (
   errorData: ErrorMessage,
@@ -149,6 +160,8 @@ export const ERRORS = {
       throwError(MESSAGES.MEAL_NAME_REQUIRED, internalMessage),
     INGREDIENT_INVALID: (internalMessage?: string) =>
       throwError(MESSAGES.MEAL_INGREDIENT_INVALID, internalMessage),
+    NO_PORTIONS: (internalMessage?: string) =>
+      throwError(MESSAGES.MEAL_NO_PORTIONS, internalMessage),
   },
   INGREDIENT: {
     NOT_FOUND: (internalMessage?: string) =>
@@ -172,4 +185,8 @@ export const ERRORS = {
     PAGE_SIZE_NOT_FOUND: (internalMessage?: string) =>
       throwError(MESSAGES.REQUEST_PAGE_SIZE_NOT_FOUND, internalMessage),
   },
+  LOG: {
+    NOT_FOUND: (internalMessage?: string) =>
+      throwError(MESSAGES.LOG_NOT_FOUND, internalMessage)
+  }
 };

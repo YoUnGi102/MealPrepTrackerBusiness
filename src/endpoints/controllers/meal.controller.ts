@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import logger from 'src/logic/utils/logger';
-import { createMealService } from '../../logic/services/meal.service.factory';
+import { createMealService } from '../../logic/services/implementations/meal.service.factory';
 import { ERRORS } from 'src/logic/utils/errorMessages';
 import AppDataSource from 'src/data-source';
 

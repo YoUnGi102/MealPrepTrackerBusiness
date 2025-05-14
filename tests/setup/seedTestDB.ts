@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import ingredients from '../config/ingredients';
+import ingredients from '../fixtures/ingredients';
 import { Ingredient } from '../../src/database/entities';
 
 export async function seedTestDB(dataSource: DataSource) {

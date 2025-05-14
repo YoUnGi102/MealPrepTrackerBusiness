@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import logger from '../../logic/utils/logger';
 import AppDataSource from 'src/data-source';
-import { createMealService } from '@src/logic/services/meal.service.factory';
+import { createMealService } from '@src/logic/services/implementations/meal.service.factory';
 import { MealResponse } from '@src/logic/types/response/MealResponse';
 import { ERRORS } from '@src/logic/utils/errorMessages';
 import { PaginatedResult } from '@src/logic/types/database/PaginatedResult';

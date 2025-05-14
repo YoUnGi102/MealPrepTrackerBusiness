@@ -2,13 +2,17 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { DataSource } from 'typeorm';
-import * as userRepo from '../../repositories/user.repository';
-import { User } from '../../database/entities/User';
-import { ERRORS } from '../utils/errorMessages';
+import { User } from '../../../database/entities/User';
+import { ERRORS } from '../../utils/errorMessages';
+import { TypeormUserRepository } from '../../../repositories/implementations/user.repository';
 
-export const createAuthService = (dataSource: DataSource) => ({
+export const createAuthService = (dataSource: DataSource) => {
+
+  const userRepo = new TypeormUserRepository(dataSource);
+
+  return {
   async register(username: string, password: string): Promise<Partial<User>> {
-    const existing = await userRepo.getUserByUsername(username, dataSource);
+    const existing = await userRepo.getUserByUsername(username);
     if (existing) {
       throw ERRORS.USER.ALREADY_EXISTS(
         `User with username ${username} already exists`,
@@ -19,14 +23,13 @@ export const createAuthService = (dataSource: DataSource) => ({
     const newUser = await userRepo.createUser(
       username,
       hashedPassword,
-      dataSource,
     );
 
     return { id: newUser.id, username: newUser.username };
   },
 
   async login(username: string, password: string): Promise<{ token: string }> {
-    const user = await userRepo.authUser(username, dataSource);
+    const user = await userRepo.authUser(username);
     if (!user) {
       throw ERRORS.USER.NOT_FOUND(
         `User with username ${username} was not found`,
@@ -48,4 +51,5 @@ export const createAuthService = (dataSource: DataSource) => ({
 
     return { token };
   },
-});
+}
+};

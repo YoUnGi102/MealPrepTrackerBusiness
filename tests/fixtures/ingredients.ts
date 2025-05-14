@@ -1,3 +1,26 @@
+export const INGREDIENT_WITH_BARCODE = {
+  name: 'Chicken Breast',
+  type: 'INGREDIENT',
+  protein: 31,
+  fat: 3.6,
+  carbs: 0,
+  sugar: 0,
+  calories: 165,
+  image: 'chicken.jpg',
+  barcode: '3662168000444'
+}
+
+export const INGREDIENT_WITHOUT_BARCODE = {
+  name: 'Tofu',
+  type: 'INGREDIENT',
+  protein: 8,
+  fat: 4.8,
+  carbs: 1.9,
+  sugar: 0.3,
+  calories: 76,
+  image: 'tofu.jpg',
+}
+
 const ingredients = [
   {
     name: 'Chicken Breast',
@@ -8,6 +31,7 @@ const ingredients = [
     sugar: 0,
     calories: 165,
     image: 'chicken.jpg',
+    barcode: '3662168000444'
   },
   {
     name: 'Tofu',

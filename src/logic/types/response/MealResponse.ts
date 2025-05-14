@@ -46,6 +46,9 @@ export class MealResponse {
   @Expose()
   createdAt!: Date;
 
+  @Exclude()
+  version!: Date;
+
   constructor(partial: Partial<Meal>) {
     Object.assign(this, partial);
   }

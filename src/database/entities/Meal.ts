@@ -10,7 +10,7 @@ import { User } from './User';
 import { MealIngredient } from './MealIngredient';
 import { Fridge } from './Fridge';
 import { MacroEntity } from './MacroEntity';
-import { calculateMacros } from '../../logic/utils/utils';
+import { calculateMacros } from '../utils/db.helper';
 
 @Entity()
 export class Meal extends MacroEntity {
@@ -27,6 +27,7 @@ export class Meal extends MacroEntity {
   @BeforeUpdate()
   calculateMacros() {
     const { protein, fat, carbs, sugar, calories } = calculateMacros(
+      this.portions,
       this.ingredients,
     );
     this.protein = protein;
@@ -45,7 +46,7 @@ export class Meal extends MacroEntity {
     createdBy: User,
     image?: string,
   ) {
-    const macros = calculateMacros(ingredients);
+    const macros = calculateMacros(portions, ingredients);
     super(
       name,
       type,

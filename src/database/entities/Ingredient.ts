@@ -1,4 +1,4 @@
-import { Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { User } from './User';
 import { MacroEntity } from './MacroEntity';
 import { MealIngredient } from './MealIngredient';
@@ -11,6 +11,12 @@ export class Ingredient extends MacroEntity {
   )
   mealIngredients?: MealIngredient[];
 
+  @Column('varchar', { length:20, unique: true, nullable: true })
+  barcode?: string;
+
+  @Column('int', { nullable: true })
+  defaultAmount?: number;
+
   constructor(
     name: string,
     type: string,
@@ -21,7 +27,11 @@ export class Ingredient extends MacroEntity {
     calories: number,
     image: string,
     createdBy: User,
+    barcode?: string,
+    defaultAmount?: number,
   ) {
     super(name, type, protein, fat, carbs, sugar, calories, createdBy, image);
+    this.barcode = barcode;
+    this.defaultAmount = defaultAmount;
   }
 }

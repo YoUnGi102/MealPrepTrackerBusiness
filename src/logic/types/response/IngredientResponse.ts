@@ -26,6 +26,12 @@ export class IngredientResponse {
   @Expose()
   image?: string;
 
+  @Expose()
+  barcode?: string;
+
+  @Expose()
+  defaultAmount?: string;
+
   @Exclude()
   version!: number;
 
