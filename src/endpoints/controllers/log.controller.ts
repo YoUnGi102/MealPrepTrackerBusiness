@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import AppDataSource from 'src/data-source';
-import logger from '../../logic/utils/logger';
+import AppDataSource from '@src/data-source';
+import logger from '@logic/utils/logger';
 import { createLogService } from '@src/logic/services/implementations/log.service.factory';
 import { ERRORS } from '@src/logic/utils/errorMessages';
 

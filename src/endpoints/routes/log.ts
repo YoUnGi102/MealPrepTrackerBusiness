@@ -1,4 +1,4 @@
-import { authMiddleware } from '@src/logic/middleware/auth.middleware';
+import { authMiddleware } from '@logic/middleware/auth.middleware';
 import express from 'express';
 import logController from '../controllers/log.controller';
 

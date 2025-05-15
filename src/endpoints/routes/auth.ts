@@ -3,8 +3,8 @@ import {
   loginUser,
   registerUser,
   logoutUser,
-} from '../../endpoints/controllers/auth.controller';
-import { authMiddleware } from '../../logic/middleware/auth.middleware';
+} from '../controllers/auth.controller';
+import { authMiddleware } from '@logic/middleware/auth.middleware';
 import validate from '@src/logic/middleware/validation.middleware';
 import {
   userLoginSchema,

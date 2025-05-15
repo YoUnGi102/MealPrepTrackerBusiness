@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { createAuthService } from '@src/logic/services/implementations/auth.service.factory';
-import AppDataSource from 'src/data-source';
-import logger from '../../logic/utils/logger';
+import { createAuthService } from '@logic/services/implementations/auth.service.factory';
+import AppDataSource from '@src/data-source';
+import logger from '@logic/utils/logger';
 
 const authService = createAuthService(AppDataSource);
 

@@ -1,8 +1,8 @@
 import express from 'express';
-import { authMiddleware } from '../../logic/middleware/auth.middleware';
+import { authMiddleware } from '@logic/middleware/auth.middleware';
 import ingredientController from '../controllers/ingredient.controller';
-import validate from '../../logic/middleware/validation.middleware';
-import { ingredientAddSchema } from '../../logic/validation/ingredient.schema';
+import validate from '@logic/middleware/validation.middleware';
+import { ingredientAddSchema } from '@logic/validation/ingredient.schema';
 
 const router = express.Router();
 

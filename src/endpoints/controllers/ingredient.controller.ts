@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from 'express';
-import { Ingredient } from '../../logic/types/core/Ingredient';
-import logger from '../../logic/utils/logger';
-import { createIngredientService } from '../../logic/services/implementations/ingredient.service.factory';
-import AppDataSource from 'src/data-source';
-import { PaginatedResult } from '@src/logic/types/other/PaginatedResult';
+import { Ingredient } from '@logic/types/core/Ingredient';
+import logger from '@logic/utils/logger';
+import { createIngredientService } from '@logic/services/implementations/ingredient.service.factory';
+import AppDataSource from '@src/data-source';
+import { PaginatedResult } from '@logic/types/other/PaginatedResult';
 
 const ingredientService = createIngredientService(AppDataSource);
 

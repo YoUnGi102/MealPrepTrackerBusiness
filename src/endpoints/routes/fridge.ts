@@ -1,5 +1,5 @@
 import express from 'express';
-import { authMiddleware } from '../../logic/middleware/auth.middleware';
+import { authMiddleware } from '@logic/middleware/auth.middleware';
 import { getFridgeMeals } from '../controllers/fridge.controller';
 
 const router = express.Router();

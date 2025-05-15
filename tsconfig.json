@@ -26,7 +26,8 @@
       "@database/*": ["src/database/*"],
       "@logic/*": ["src/logic/*"],
       "@repositories/*": ["src/repositories/*"],
-      "@utils/": ["src/logic/utils/*"]
+      "@utils/": ["src/logic/utils/*"],
+      "@endpoints": ["src/endpoints/"]
     }
   },
   "include": ["src/**/*", "src/database/migrations/**/*"],

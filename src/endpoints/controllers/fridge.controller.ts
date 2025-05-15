@@ -1,10 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
-import logger from '../../logic/utils/logger';
-import AppDataSource from 'src/data-source';
-import { createMealService } from '@src/logic/services/implementations/meal.service.factory';
-import { MealResponse } from '@src/logic/types/response/MealResponse';
-import { ERRORS } from '@src/logic/utils/errorMessages';
-import { PaginatedResult } from '@src/logic/types/other/PaginatedResult';
+import logger from '@logic/utils/logger';
+import AppDataSource from '@src/data-source';
+import { createMealService } from '@logic/services/implementations/meal.service.factory';
+import { MealResponse } from '@logic/types/response/MealResponse';
+import { ERRORS } from '@logic/utils/errorMessages';
+import { PaginatedResult } from '@logic/types/other/PaginatedResult';
 
 const mealService = createMealService(AppDataSource);
 
