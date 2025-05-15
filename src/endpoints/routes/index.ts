@@ -13,6 +13,6 @@ router.use('/ingredients', ingredient);
 router.use('/meals', meal);
 router.use('/healh', health);
 router.use('/fridge', fridge);
-router.use('/logs', log)
+router.use('/logs', log);
 
 export default router;

@@ -1,3 +1,5 @@
+import { MealIngredientRequest } from './MealIngredientRequest';
+
 export interface MealRequest {
   name: string;
   type: string;

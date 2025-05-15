@@ -1,5 +1,4 @@
 import { CustomError } from '../middleware/error.middleware';
-import { Response } from 'express';
 
 export const STATUS = {
   // SUCCESS
@@ -75,7 +74,7 @@ export const MESSAGES = {
   },
   MEAL_NO_PORTIONS: {
     message: 'No portions for this meal',
-    status: STATUS.BAD_REQUEST
+    status: STATUS.BAD_REQUEST,
   },
 
   // INGREDIENT
@@ -111,12 +110,12 @@ export const MESSAGES = {
   // LOG
   LOG_NOT_FOUND: {
     message: 'Log not found',
-    status: STATUS.NOT_FOUND
+    status: STATUS.NOT_FOUND,
   },
   LOG_ID_INVALID: {
     message: 'No "logId" recieved',
-    status: STATUS.BAD_REQUEST
-,  }
+    status: STATUS.BAD_REQUEST,
+  },
 };
 
 interface ErrorMessage {
@@ -187,6 +186,6 @@ export const ERRORS = {
   },
   LOG: {
     NOT_FOUND: (internalMessage?: string) =>
-      throwError(MESSAGES.LOG_NOT_FOUND, internalMessage)
-  }
+      throwError(MESSAGES.LOG_NOT_FOUND, internalMessage),
+  },
 };

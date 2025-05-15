@@ -21,8 +21,14 @@ export const ingredientToDTO = (ingredient: Ingredient): IngredientDTO => {
     deletedAt: ingredient.deletedAt,
     version: ingredient.version,
 
-    createdBy: ingredient.createdBy ? userToDTO(ingredient.createdBy) : undefined,
-    updatedBy: ingredient.updatedBy ? userToDTO(ingredient.updatedBy) : undefined,
-    deletedBy: ingredient.deletedBy ? userToDTO(ingredient.deletedBy) : undefined,
+    createdBy: ingredient.createdBy
+      ? userToDTO(ingredient.createdBy)
+      : undefined,
+    updatedBy: ingredient.updatedBy
+      ? userToDTO(ingredient.updatedBy)
+      : undefined,
+    deletedBy: ingredient.deletedBy
+      ? userToDTO(ingredient.deletedBy)
+      : undefined,
   };
-}
+};

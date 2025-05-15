@@ -7,6 +7,7 @@ export const userToDTO = (user: User): UserDTO => {
     uuid: user.uuid,
     username: user.username,
     active: user.active,
+    password: user.password,
 
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
@@ -15,4 +16,4 @@ export const userToDTO = (user: User): UserDTO => {
 
     fridgeId: user.fridge?.id,
   };
-}
+};

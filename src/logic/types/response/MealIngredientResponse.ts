@@ -1,6 +1,7 @@
-import { MealIngredient, User } from '@src/database/entities';
+import { User } from '@src/database/entities';
 import { Expose, Exclude, Type } from 'class-transformer';
 import { IngredientResponse } from './IngredientResponse';
+import { MealIngredientDTO } from '../dto/MealIngredientDTO';
 
 export class MealIngredientResponse {
   @Expose()
@@ -31,7 +32,7 @@ export class MealIngredientResponse {
   @Exclude()
   version!: number;
 
-  constructor(partial: Partial<MealIngredient>) {
+  constructor(partial: Partial<MealIngredientDTO>) {
     Object.assign(this, partial);
   }
 }

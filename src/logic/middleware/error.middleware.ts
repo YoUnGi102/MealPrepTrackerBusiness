@@ -26,7 +26,7 @@ export const errorMiddleware = (
   next: NextFunction,
 ) => {
   logger.error(
-    `[ERROR]: ${req.method} - ${req.originalUrl} - ${err.status || 500} - ${err.internalMessage}`,
+    `[ERROR]: ${req.method} - ${req.originalUrl} - ${err.status || 500} - ${err.internalMessage || err.message}`,
   );
   res.status(err.status || 500).json({
     success: false,

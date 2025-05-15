@@ -1,6 +1,5 @@
-// src/services/interfaces/UserService.ts
-import { User } from '@src/database/entities';
+import { UserDTO } from '@src/logic/types/dto/UserDTO';
 
 export interface UserService {
-  getUserByUsername(username: string): Promise<User | null>;
+  getUserByUsername(username: string): Promise<UserDTO | null>;
 }

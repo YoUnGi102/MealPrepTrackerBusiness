@@ -1,7 +1,7 @@
-import { MealIngredient } from "@src/database/entities";
-import { MealIngredientDTO } from "@src/logic/types/dto/MealIngredientDTO";
-import { ingredientToDTO } from "./ingredient.mapper";
-import { userToDTO } from "./user.mapper";
+import { MealIngredient } from '@src/database/entities';
+import { MealIngredientDTO } from '@src/logic/types/dto/MealIngredientDTO';
+import { ingredientToDTO } from './ingredient.mapper';
+import { userToDTO } from './user.mapper';
 
 export const mealIngredientToDTO = (mi: MealIngredient): MealIngredientDTO => {
   return {
@@ -19,4 +19,4 @@ export const mealIngredientToDTO = (mi: MealIngredient): MealIngredientDTO => {
     updatedBy: mi.updatedBy ? userToDTO(mi.updatedBy) : undefined,
     deletedBy: mi.deletedBy ? userToDTO(mi.deletedBy) : undefined,
   };
-}
+};

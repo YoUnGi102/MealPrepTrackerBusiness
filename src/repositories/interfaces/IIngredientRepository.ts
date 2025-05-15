@@ -8,6 +8,6 @@ export interface IIngredientRepository {
   getIngredientsPaginated(
     filter: string,
     pageIndex: number,
-    pageSize: number
+    pageSize: number,
   ): Promise<PaginatedResult<IngredientDTO>>;
 }

@@ -3,12 +3,14 @@ import { DataSource } from 'typeorm';
 import { User, Fridge } from '@src/database/entities';
 import { ERRORS } from '@src/logic/utils/errorMessages';
 import { IUserRepository } from '../interfaces/IUserRepository';
+import { UserDTO } from '@src/logic/types/dto/UserDTO';
+import { userToDTO } from './mappers/user.mapper';
 
 export class TypeormUserRepository implements IUserRepository {
   constructor(private dataSource: DataSource) {}
 
-  async authUser(username: string): Promise<User | null> {
-    return await this.dataSource.getRepository(User).findOne({
+  async authUser(username: string): Promise<UserDTO | null> {
+    const user = await this.dataSource.getRepository(User).findOne({
       where: { username },
       select: {
         username: true,
@@ -16,16 +18,18 @@ export class TypeormUserRepository implements IUserRepository {
         password: true,
       },
     });
+    return user ? userToDTO(user) : null;
   }
 
-  async getUserByUsername(username: string): Promise<User | null> {
-    return await this.dataSource.getRepository(User).findOne({
+  async getUserByUsername(username: string): Promise<UserDTO | null> {
+    const user = await this.dataSource.getRepository(User).findOne({
       where: { username },
       relations: ['fridge'],
     });
+    return user ? userToDTO(user) : null;
   }
 
-  async createUser(username: string, hashedPassword: string): Promise<User> {
+  async createUser(username: string, hashedPassword: string): Promise<UserDTO> {
     if (!username || username.trim() === '') {
       throw ERRORS.USER.USERNAME_MISSING();
     }
@@ -34,7 +38,7 @@ export class TypeormUserRepository implements IUserRepository {
       throw ERRORS.USER.PASSWORD_MISSING();
     }
 
-    return await this.dataSource.transaction(async (manager) => {
+    const user = await this.dataSource.transaction(async (manager) => {
       const existing = await manager.findOne(User, { where: { username } });
       if (existing) {
         throw ERRORS.USER.ALREADY_EXISTS();
@@ -54,5 +58,7 @@ export class TypeormUserRepository implements IUserRepository {
 
       return user;
     });
+
+    return userToDTO(user);
   }
 }

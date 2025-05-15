@@ -1,65 +1,77 @@
-import { Log, Meal, User } from "@src/database/entities"
-import { Between, DataSource } from "typeorm"
-import { ILogRepository } from "../interfaces/ILogRepository"
+import { Log, Meal, User } from '@src/database/entities';
+import { Between, DataSource } from 'typeorm';
+import { ILogRepository } from '../interfaces/ILogRepository';
+import { LogDTO } from '@src/logic/types/dto/LogDTO';
+import { logToDTO } from './mappers/log.mapper';
 
 export class TypeormLogRepository implements ILogRepository {
-    constructor(private dataSource: DataSource) {}
+  constructor(private dataSource: DataSource) {}
 
-    async addLog(user: User, mealId: number): Promise<Log> {
-        return await this.dataSource.transaction(async (manager) => {
-            const mealRepo = manager.getRepository(Meal);
-            const logRepo = manager.getRepository(Log);
+  async addLog(userId: number, mealId: number): Promise<LogDTO> {
+    return await this.dataSource.transaction(async (manager) => {
+      const user = await manager
+        .getRepository(User)
+        .findOne({ where: { id: userId } });
+      if (!user) {
+        throw new Error('User Not Found');
+      }
 
-            const meal = await mealRepo.findOneByOrFail({ id: mealId });
+      const mealRepo = manager.getRepository(Meal);
+      const logRepo = manager.getRepository(Log);
 
-            // Check for and decrease portions
-            if (meal.portions <= 0) {
-                throw new Error('No portions left to log');
-            }
+      const meal = await mealRepo.findOneByOrFail({
+        id: mealId,
+        createdBy: user,
+      });
 
-            await mealRepo.update({id: meal.id}, {portions: meal.portions-1});
+      // Check for and decrease portions
+      if (meal.portions <= 0) {
+        throw new Error('No portions left to log');
+      }
 
-            // Create and save log
-            const log = logRepo.create({
-            meal,
-            createdBy: user,
-            });
+      await mealRepo.update({ id: meal.id }, { portions: meal.portions - 1 });
 
-            return await logRepo.save(log);
-        });
-    }
+      // Create and save log
+      const log = logRepo.create({
+        meal,
+        createdBy: user,
+      });
 
-    async getLog(user: User, id: number): Promise<Log | null> {
-        const log: Log | null = await this.dataSource.getRepository(Log).findOne({
-            where: {
-                id,
-                createdBy: {
-                    id: user.id
-                }
-            },
-            relations: {
-                meal: true
-            }
-        })
-        return log;
-    }
+      return logToDTO(await logRepo.save(log));
+    });
+  }
 
-    async getTodayLogs(periodFrom: Date, periodUntil: Date, user: User): Promise<Log[]> {
-        const logs: Log[] = await this.dataSource.getRepository(Log).find({
-            where: {
-                user: {
-                    id: user.id
-                },
-                createdAt: Between(periodFrom, periodUntil)
-            },
-            relations: {
-                meal: true
-            }
-        })
-        return logs;
-    }
+  async getLog(userId: number, id: number): Promise<LogDTO | null> {
+    const log: Log | null = await this.dataSource.getRepository(Log).findOne({
+      where: {
+        id,
+        createdBy: {
+          id: userId,
+        },
+      },
+      relations: {
+        meal: true,
+      },
+    });
+    return log ? logToDTO(log) : null;
+  }
 
+  async getTodayLogs(
+    periodFrom: Date,
+    periodUntil: Date,
+    userId: number,
+  ): Promise<LogDTO[]> {
+    const logs: Log[] = await this.dataSource.getRepository(Log).find({
+      where: {
+        user: {
+          id: userId,
+        },
+        createdAt: Between(periodFrom, periodUntil),
+      },
+      relations: {
+        meal: true,
+      },
+    });
+    return logs.map(logToDTO);
+  }
 }
-
-
-export default {}

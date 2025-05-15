@@ -7,8 +7,8 @@ export const INGREDIENT_WITH_BARCODE = {
   sugar: 0,
   calories: 165,
   image: 'chicken.jpg',
-  barcode: '3662168000444'
-}
+  barcode: '3662168000444',
+};
 
 export const INGREDIENT_WITHOUT_BARCODE = {
   name: 'Tofu',
@@ -19,7 +19,7 @@ export const INGREDIENT_WITHOUT_BARCODE = {
   sugar: 0.3,
   calories: 76,
   image: 'tofu.jpg',
-}
+};
 
 const ingredients = [
   {
@@ -31,7 +31,7 @@ const ingredients = [
     sugar: 0,
     calories: 165,
     image: 'chicken.jpg',
-    barcode: '3662168000444'
+    barcode: '3662168000444',
   },
   {
     name: 'Tofu',

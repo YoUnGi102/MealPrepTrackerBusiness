@@ -33,19 +33,22 @@ const getIngredients = async (
 const getIngredientByBarcode = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
-  logger.info(`GET api/ingredients/barcode/{:barcode}: ${JSON.stringify(req.params)}`)
+  logger.info(
+    `GET api/ingredients/barcode/{:barcode}: ${JSON.stringify(req.params)}`,
+  );
 
-  const {barcode} = req.params;
+  const { barcode } = req.params;
 
   try {
-    const newIngredient = await ingredientService.getIngredientByBarcode(barcode);
+    const newIngredient =
+      await ingredientService.getIngredientByBarcode(barcode);
     res.status(201).json(newIngredient);
   } catch (error) {
     next(error);
   }
-}
+};
 
 const postIngredient = async (
   req: Request,
@@ -62,4 +65,4 @@ const postIngredient = async (
   }
 };
 
-export default {getIngredients, getIngredientByBarcode, postIngredient}
+export default { getIngredients, getIngredientByBarcode, postIngredient };

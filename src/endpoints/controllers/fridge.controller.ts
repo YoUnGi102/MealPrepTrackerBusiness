@@ -34,7 +34,6 @@ export const getFridgeMeals = async (
         filter as string,
         Number(pageIndex),
         Number(pageSize),
-        AppDataSource,
       );
 
     if (meals) {

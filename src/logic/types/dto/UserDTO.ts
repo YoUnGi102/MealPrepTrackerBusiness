@@ -3,6 +3,7 @@ export interface UserDTO {
   uuid: string;
   username: string;
   active: boolean;
+  password: string;
 
   createdAt: Date;
   updatedAt?: Date;

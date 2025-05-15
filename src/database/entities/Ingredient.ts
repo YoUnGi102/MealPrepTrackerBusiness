@@ -11,7 +11,7 @@ export class Ingredient extends MacroEntity {
   )
   mealIngredients?: MealIngredient[];
 
-  @Column('varchar', { length:20, unique: true, nullable: true })
+  @Column('varchar', { length: 20, unique: true, nullable: true })
   barcode?: string;
 
   @Column('int', { nullable: true })

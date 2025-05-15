@@ -7,7 +7,16 @@ import { ingredientAddSchema } from '../../logic/validation/ingredient.schema';
 const router = express.Router();
 
 router.get('/', authMiddleware, ingredientController.getIngredients);
-router.get('/barcode/:barcode', authMiddleware, ingredientController.getIngredientByBarcode)
-router.post('/', authMiddleware, validate(ingredientAddSchema), ingredientController.postIngredient);
+router.get(
+  '/barcode/:barcode',
+  authMiddleware,
+  ingredientController.getIngredientByBarcode,
+);
+router.post(
+  '/',
+  authMiddleware,
+  validate(ingredientAddSchema),
+  ingredientController.postIngredient,
+);
 
 export default router;

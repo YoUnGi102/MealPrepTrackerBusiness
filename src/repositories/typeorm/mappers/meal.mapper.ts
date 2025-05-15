@@ -2,7 +2,8 @@
 
 import { Meal } from '@src/database/entities';
 import { MealDTO } from '@logic/types/dto/MealDTO';
-import { mealIngredientToDTO } from './mapMealIngredient';
+import { mealIngredientToDTO } from './mealIngredient.mapper';
+import { userToDTO } from './user.mapper';
 
 export const mealToDTO = (meal: Meal): MealDTO => {
   return {
@@ -22,18 +23,7 @@ export const mealToDTO = (meal: Meal): MealDTO => {
     deletedAt: meal.deletedAt,
     version: meal.version,
 
-    createdBy: meal.createdBy ? {
-      id: meal.createdBy.id,
-      uuid: meal.createdBy.uuid,
-      username: meal.createdBy.username,
-      active: meal.createdBy.active,
-      createdAt: meal.createdBy.createdAt,
-      updatedAt: meal.createdBy.updatedAt,
-      deletedAt: meal.createdBy.deletedAt,
-      version: meal.createdBy.version,
-      fridgeId: meal.createdBy.fridge?.id,
-    } : undefined,
-
+    createdBy: meal.createdBy ? userToDTO(meal.createdBy) : undefined,
     ingredients: meal.ingredients?.map(mealIngredientToDTO) || [],
   };
-}
+};

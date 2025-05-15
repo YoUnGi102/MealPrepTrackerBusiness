@@ -6,21 +6,17 @@ import { ERRORS } from '@src/logic/utils/errorMessages';
 
 const logService = createLogService(AppDataSource);
 
-const addLog = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const addLog = async (req: Request, res: Response, next: NextFunction) => {
   logger.info(`POST /api/log/ ${req.body}`);
   try {
-    const {mealId} = req.body
-    if(!req.user){
-        throw ERRORS.USER.NOT_FOUND();
+    const { mealId } = req.body;
+    if (!req.user) {
+      throw ERRORS.USER.NOT_FOUND();
     }
     const log = await logService.addLog(req.user, Number(mealId));
-    if(log){
-      res.status(201).json({data: log});
-    }else{
+    if (log) {
+      res.status(201).json({ data: log });
+    } else {
       throw new Error('Log not created');
     }
   } catch (err) {
@@ -28,25 +24,21 @@ const addLog = async (
   }
 };
 
-const getLog = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getLog = async (req: Request, res: Response, next: NextFunction) => {
   logger.info(`GET /api/log/:id ${req}`);
   logger.debug(JSON.stringify(req.params));
   try {
-    const {logId} = req.params;
-    if(!req.user){
-        throw ERRORS.USER.NOT_FOUND();
+    const { logId } = req.params;
+    if (!req.user) {
+      throw ERRORS.USER.NOT_FOUND();
     }
-    if(!logId) {
-      throw ERRORS.LOG
+    if (!logId) {
+      throw ERRORS.LOG;
     }
     const log = await logService.getLog(req.user, Number(logId));
-    if(log){
-      res.status(200).json({data: log});
-    } else{
+    if (log) {
+      res.status(200).json({ data: log });
+    } else {
       throw ERRORS.LOG.NOT_FOUND();
     }
   } catch (err) {
@@ -55,4 +47,4 @@ const getLog = async (
   }
 };
 
-export default {addLog, getLog}
+export default { addLog, getLog };

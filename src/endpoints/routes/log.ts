@@ -1,6 +1,6 @@
 import { authMiddleware } from '@src/logic/middleware/auth.middleware';
 import express from 'express';
-import logController from '../controllers/log.controller'
+import logController from '../controllers/log.controller';
 
 const router = express.Router();
 
