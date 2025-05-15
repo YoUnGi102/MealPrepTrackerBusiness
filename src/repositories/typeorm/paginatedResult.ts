@@ -3,7 +3,7 @@ import {
   paginateResult,
 } from '@src/logic/types/other/PaginatedResult';
 import logger from '@src/logic/utils/logger';
-import { Repository, ObjectLiteral, FindOptionsWhere } from 'typeorm';
+import { Repository, ObjectLiteral, FindOptionsWhere, FindOptionsRelations } from 'typeorm';
 
 type MapperFn<Entity, DTO> = (entity: Entity) => DTO;
 
@@ -11,7 +11,7 @@ export const getPaginatedResult = async <Entity extends ObjectLiteral, DTO>(
   pageIndex: number,
   pageSize: number,
   where: FindOptionsWhere<Entity>,
-  relations: string[] | undefined,
+  relations: FindOptionsRelations<Entity> | string[] | undefined,
   repository: Repository<Entity>,
   mapper: MapperFn<Entity, DTO>,
 ): Promise<PaginatedResult<DTO>> => {

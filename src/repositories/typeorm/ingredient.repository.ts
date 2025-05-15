@@ -46,7 +46,7 @@ export class TypeormIngredientRepository implements IIngredientRepository {
       pageIndex,
       pageSize,
       where,
-      null,
+      undefined,
       repo,
       ingredientToDTO,
     );

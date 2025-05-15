@@ -41,7 +41,7 @@ tests/
 | **Cucumber**              | BDD-style integration testing      |
 | **Nodemon** / **tsx**     | Dev server                         |
 | **GitHub Actions**        | CI/CD for testing, linting, deploy |
-| **Render**                | Cloud deployment                   |
+| **Render**                | Deployment                         |
 
 ---
 
